@@ -1,0 +1,68 @@
+
+/* --- Start progress bar --- */
+
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  .select {
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+    color: #444;
+    width: 200px;
+    cursor: pointer;
+  }
+  
+  
+  .select:focus {
+    outline: none;
+  }
+  
+  .select-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  
+  .select-icon i {
+    font-size: 12px;
+    color: #444;
+    transition: all 0.2s;
+  }
+  
+  .select:focus + .select-icon i {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  .upload-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .upload-btn:hover {
+    background-color: #0069d9;
+  }
+  
+  .upload-input {
+    position: absolute;
+    left: -9999px;
+  }
+  
+  .upload-btn:active {
+    transform: translateY(1px);
+  }
