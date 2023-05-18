@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\SkripsiController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,9 @@ Route::post('register', [AuthController::class, 'registerProcess'])->middleware(
 // Route KELOLA SKRIPSI
 Route::get('tabel-skripsi', [SkripsiController::class, 'index'])->middleware('auth');
 
+// Route KELOLA USER
+Route::get('data-mahasiswa', [ManageUserController::class, 'index'])->middleware('auth');
+
 Route::get('/tabel-judul', function () {
     return view('main.tabel-judul');
 });
@@ -45,9 +49,6 @@ Route::get('/form-biodata', function () {
 });
 Route::get('/register', function () {
     return view('main.register');
-});
-Route::get('/data-mahasiswa', function () {
-    return view('main.data-mahasiswa');
 });
 Route::get('/data-dosen', function () {
     return view('main.data-dosen');

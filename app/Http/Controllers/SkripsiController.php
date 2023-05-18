@@ -13,7 +13,12 @@ class SkripsiController extends Controller
 {
     public function index()
     {
-        $data = Skripsi::all();
+        if (auth()->user()->user_type == 'admin') {
+            $data = Skripsi::all();
+        } else if (auth()->user()->user_type == 'dosen') {
+            $data = Skripsi::where('nip1', auth()->user()->id)->orWhere('nip2', auth()->user()->id)->get();
+        }
+        // dd($data);
         return view('main.tabel-skripsi', [
             'data' => $data,
         ]);

@@ -1,21 +1,11 @@
 @extends('layouts.main')
 
 @section('main-contents')
-    {{-- @push('link')
-        <!-- Google Font: Source Sans Pro -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="{{ asset('main-assets') }}/plugins/fontawesome-free/css/all.min.css">
-        <!-- Theme style -->
-        <link rel="stylesheet" href="{{ asset('main-assets') }}/dist/css/adminlte.min.css">
-
-    @endpush --}}
-
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
+                <div class="row">
                     <div class="col-sm-6">
                         <h1>Data Ujian Skripsi</h1>
                     </div>
@@ -39,7 +29,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="example1" class="table table-sm table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -58,7 +48,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
-                                                    <a class="btn btn-primary btn-sm" href="#">
+                                                    <a class="btn btn-primary btn-sm badge" href="#">
                                                         <i class="fas fa-folder"></i> Lihat Skripsi
                                                     </a>
                                                 </td>
@@ -111,30 +101,4 @@
         </section>
         <!-- /.content -->
     </div>
-
-    {{-- @push('script')
-        <!-- jQuery -->
-        <script src="{{ asset('main-asset/plugins/jquery/jquery.min.js') }}"></script>
-        <!-- Bootstrap 4 -->
-        <script src="{{ asset('main-asset/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <!-- DataTables  & Plugins -->
-        <script src="{{ asset('main-assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/jszip/jszip.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-        <!-- AdminLTE App -->
-        <script src="{{ asset('main-asset/dist/js/adminlte.min.js') }}"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="{{ asset('main-asset/dist/js/demo.js') }}"></script>
-        <!-- Page specific script -->
-
-    @endpush --}}
 @endsection
