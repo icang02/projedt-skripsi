@@ -87,7 +87,7 @@
                                                             style="width: {{ $progress }}"></div>
                                                     </div>
                                                 </td>
-                                                <td><span class="badge badge-{{ $bgProgress }}">{{ $skripsi->status }}</span></td>
+                                                <td><span class="badge badge-success">{{ $skripsi->status }}</span></td>
                                                 <td>{{ $skripsi->tgl_ujian }}</td>
                                             </tr>
                                         @empty

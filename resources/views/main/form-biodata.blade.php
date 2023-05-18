@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="{{ asset('main-assets') }}/plugins/fontawesome-free/css/all.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('main-assets') }}/dist/css/adminlte.min.css">
-       
+
     @endpush --}}
-    
+
     <link rel="stylesheet" href="main-assets/dist/css/form.css">
 
     <div class="content-wrapper">
@@ -35,66 +35,43 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 text-center">
-						<div class="card" >
-						<div class="card-body" >
-            
-    
-<form>
-    <div class="form-group">
-      <label for="nama">Nama:</label>
-      <input type="text" id="nama" name="nama" placeholder="Masukkan Nama">
-    </div>
-    <div class="form-group">
-      <label for="nim">NIM:</label>
-      <input type="text" id="nim" name="nim" placeholder="Masukkan NIM">
-    </div>
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" placeholder="Masukkan E-mail">
-    </div>
-    <div class="form-group">
-      <label for="semester">Semester:</label>
-      <select id="semester" name="semester">
-        <option value="1">Semester 1</option>
-        <option value="2">Semester 2</option>
-        <option value="3">Semester 3</option>
-        <option value="4">Semester 4</option>
-        <option value="5">Semester 5</option>
-        <option value="6">Semester 6</option>
-        <option value="7">Semester 7</option>
-        <option value="8">Semester 8</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="umur">Umur:</label>
-      <input type="number" id="umur" name="umur" min="0">
-    </div>
-    <div class="form-group">
-      <label for="kelas">Kelas:</label>
-      <select id="kelas" name="kelas">
-        <option value="1">GANJIL</option>
-        <option value="2">GENAP</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <button type="submit">Submit</button>
-    </div>
-  </form>
-</div>
-</div>
-</div>
+                        <div class="card">
+                            <div class="card-body">
+
+
+                                <form>
+                                    <div class="form-group">
+                                        <label for="nama">Nama:</label>
+                                        <input type="text" id="nama" name="nama" placeholder="Masukkan Nama">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nim">NIM:</label>
+                                        <input type="text" id="nim" name="nim" placeholder="Masukkan NIM">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="TA">Judul Tugas akhir</label>
+                                        <input type="text" id="TA" name="TA" placeholder="Masukkan E-mail">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit">Submit</button>
+                                    </div>
+                                </form>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
+                <!-- /.card-body -->
             </div>
-            <!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
+            <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
     </div>
 
     {{-- @push('script')
@@ -120,6 +97,6 @@
         <!-- AdminLTE for demo purposes -->
         <script src="{{ asset('main-asset/dist/js/demo.js') }}"></script>
         <!-- Page specific script -->
-        
+
     @endpush --}}
 @endsection

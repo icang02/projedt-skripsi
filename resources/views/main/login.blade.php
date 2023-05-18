@@ -20,17 +20,28 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="#"><b>Admin</b>LTE</a>
+            <a href="#"><b>Login</b>Skripsi</a>
         </div>
+
+        {{-- Alert --}}
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Masukkan nim/nip yang valid</p>
 
                 <form action="{{ url('login') }}" method="post">
                     {{ csrf_field() }}
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="NIM / NIP" name="id">
+                        <input type="text" class="form-control" placeholder="NIM / NIP" name="id" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -38,7 +49,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="password">
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -56,28 +67,15 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
                         <!-- /.col -->
                     </div>
                 </form>
 
-                <div class="social-auth-links text-center mb-3">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
-                </div>
-                <!-- /.social-auth-links -->
 
-                <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password</a>
-                </p>
-                <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
+                <p class="mb-0 mt-3">
+                    <a href="{{ url('register') }}" class="text-center">Register akun baru</a>
                 </p>
             </div>
             <!-- /.login-card-body -->

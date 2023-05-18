@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>Register</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -19,33 +19,45 @@
 </head>
 
 <body class="hold-transition login-page">
-<section class="content" >
-<div class="container">
-    <form class="form">
-      <h2>Sign UP</h2>
-      <div class="form-group">
-        <label for="nama">Nama Lengkap</label>
-        <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap user" required>
-      </div>
-      <div class="form-group">
-        <label for="nip">NIM</label>
-        <input type="text" id="nip" name="nip" placeholder="Masukkan NIP user" required>
-      </div>
-      <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" placeholder="Masukkan email user" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Masukkan password user" required>
-      </div>
-      <div class="form-actions">
-        <button type="submit">Submit</button>
-        <button type="button" onclick="window.history.back()">Kembali</button>
-      </div>
-    </form>
-  </div>
-</section>
+    <section class="content">
+        <div class="container">
+            <form class="form" action="{{ url('register') }}" method="post">
+                @csrf
+                <h2>REGISTER</h2>
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap</label>
+                    <input value="{{ old('nama') }}" type="text" id="nama" name="nama"
+                        placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label for="nip">NIM</label>
+                    <input value="{{ old('nim') }}" type="text" id="nim" name="nim"
+                        placeholder="Masukkan NIM user" required maxlength="9"
+                        @error('nim') style="border: solid; border-color: rgba(255,0,0,.3)" @enderror>
+                    @error('nim')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input value="{{ old('email') }}" type="email" id="email" name="email"
+                        placeholder="Masukkan email user" required
+                        @error('email') style="border: solid; border-color: rgba(255,0,0,.3)" @enderror>
+                    @error('email')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan password user" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit">Submit</button>
+                    <button type="button" onclick="window.location.href='/login'">Kembali</button>
+                </div>
+            </form>
+        </div>
+    </section>
 
     <!-- jQuery -->
     <script src="{{ asset('main-assets/plugins/jquery/jquery.min.js') }}"></script>
