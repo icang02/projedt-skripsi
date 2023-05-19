@@ -51,7 +51,7 @@
                  @can('admin')
                      <li class="nav-item">
                          <a href="{{ url('data-mahasiswa') }}"
-                             class="nav-link {{ request()->is('data-mahasiswa') ? 'active' : '' }}">
+                             class="nav-link {{ request()->is('data-mahasiswa*') ? 'active' : '' }}">
                              <i class="nav-icon fas fa-table"></i>
                              <p>
                                  Data Mahasiswa

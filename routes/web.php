@@ -34,32 +34,18 @@ Route::get('tabel-skripsi', [SkripsiController::class, 'index'])->middleware('au
 
 // Route KELOLA USER
 Route::get('data-mahasiswa', [ManageUserController::class, 'index'])->middleware('auth');
+Route::get('data-mahasiswa/create', [ManageUserController::class, 'create'])->middleware('auth');
+Route::get('data-mahasiswa/edit/{user}', [ManageUserController::class, 'edit'])->middleware('auth');
+Route::put('data-mahasiswa/update/{user}', [ManageUserController::class, 'update'])->middleware('auth');
+Route::post('data-mahasiswa/store', [ManageUserController::class, 'store'])->middleware('auth');
+Route::delete('data-mahasiswa/destroy/{user}', [ManageUserController::class, 'destroy'])->middleware('auth');
 
-Route::get('/tabel-judul', function () {
-    return view('main.tabel-judul');
-});
-Route::get('/tabel-proposal', function () {
-    return view('main.tabel-proposal');
-});
-Route::get('/tabel-hasil', function () {
-    return view('main.tabel-hasil');
-});
-Route::get('/form-biodata', function () {
-    return view('main.form-biodata');
-});
-Route::get('/register', function () {
-    return view('main.register');
-});
-Route::get('/data-dosen', function () {
-    return view('main.data-dosen');
-});
-Route::get('/tambah-dosen', function () {
-    return view('main.tambah-dosen');
-});
+// Route RESET PASSWORD
+Route::get('reset-password/{user}', [ManageUserController::class, 'resetPassword'])->middleware('auth');
+
 Route::get('/edit-biodata', function () {
     return view('main.edit-biodata');
 });
-
 
 // Route TIMELINE
 Route::get('timeline', [SkripsiController::class, 'timeline'])->middleware('auth');
