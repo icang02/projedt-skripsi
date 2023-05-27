@@ -1,30 +1,18 @@
 @extends('layouts.main')
 
 @section('main-contents')
-    {{-- @push('link')
-        <!-- Google Font: Source Sans Pro -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="{{ asset('main-assets') }}/plugins/fontawesome-free/css/all.min.css">
-        <!-- Theme style -->
-        <link rel="stylesheet" href="{{ asset('main-assets') }}/dist/css/adminlte.min.css">
-
-    @endpush --}}
-
-    <link rel="stylesheet" href="main-assets/dist/css/form.css">
-
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
+                <div class="row">
                     <div class="col-sm-6">
-                        <h1>Form Biodata</h1>
+                        <h1>Data Mahasiswa</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Form biodata</li>
+                            <li class="breadcrumb-item active">Data Mahasiswa</li>
                         </ol>
                     </div>
                 </div>
@@ -33,70 +21,94 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-12 text-center">
+                <div class="row">
+                    <div class="col-12">
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {!! session('success') !!}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
                         <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Biodata Mahasiswa</h3>
+                            </div>
+                            <!-- /.card-header -->
                             <div class="card-body">
+                                <form action="{{ url('update-biodata/' . auth()->user()->id) }}" method="POST">
+                                    @csrf
+                                    @method('put')
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nama">Nama</label>
+                                                <input type="text" class="form-control" id="nama" placeholder="-"
+                                                    name="nama" value="{{ old('nama', $data->nama) }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="nim">NIM</label>
+                                                <input type="text" class="form-control" id="nim" placeholder="-"
+                                                    value="{{ strtoupper($data->username) }}" readonly>
+                                            </div>
+                                        </div>
 
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control" id="email" placeholder="-"
+                                                    name="email" value="{{ old('email', $data->email) }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="tgl_lahir">Tanggal Lahir</label>
+                                                <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir"
+                                                    value="{{ old('tgl_lahir', $data->biodata_mhs->tgl_lahir) }}">
+                                            </div>
+                                        </div>
 
-                                <form>
-                                    <div class="form-group">
-                                        <label for="nama">Nama:</label>
-                                        <input type="text" id="nama" name="nama" placeholder="Masukkan Nama">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nim">NIM:</label>
-                                        <input type="text" id="nim" name="nim" placeholder="Masukkan NIM">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="TA">Judul Tugas akhir</label>
-                                        <input type="text" id="TA" name="TA" placeholder="Masukkan E-mail">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="gender">Jenis Kelamin</label>
+                                                <select class="custom-select" id="gender" name="gender">
+                                                    <option value="">Choose...</option>
+                                                    <option value="L"
+                                                        @if (old('gender', $data->biodata_mhs->gender) == 'L') selected @endif>Laki - Laki
+                                                    </option>
+                                                    <option value="P"
+                                                        @if (old('gender', $data->biodata_mhs->gender) == 'P') selected @endif>Perempuan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="angkatan">Angkatan</label>
+                                                <input type="number" class="form-control" id="angkatan" placeholder="-"
+                                                    name="angkatan"
+                                                    value="{{ old('angkatan', $data->biodata_mhs->angkatan) }}">
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <button type="submit">Submit</button>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="reset" class="btn btn-danger">Reset</button>
                                 </form>
                             </div>
+                            <!-- /.card-body -->
                         </div>
+                        <!-- /.card -->
                     </div>
+                    <!-- /.col -->
                 </div>
-                <!-- /.card-body -->
+                <!-- /.row -->
             </div>
-            <!-- /.card -->
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
     </div>
-    <!-- /.col -->
-    </div>
-    <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-    </div>
-
-    {{-- @push('script')
-        <!-- jQuery -->
-        <script src="{{ asset('main-asset/plugins/jquery/jquery.min.js') }}"></script>
-        <!-- Bootstrap 4 -->
-        <script src="{{ asset('main-asset/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <!-- DataTables  & Plugins -->
-        <script src="{{ asset('main-assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/jszip/jszip.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-        <script src="{{ asset('main-assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-        <!-- AdminLTE App -->
-        <script src="{{ asset('main-asset/dist/js/adminlte.min.js') }}"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="{{ asset('main-asset/dist/js/demo.js') }}"></script>
-        <!-- Page specific script -->
-
-    @endpush --}}
 @endsection

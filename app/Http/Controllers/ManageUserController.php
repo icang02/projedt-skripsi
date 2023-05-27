@@ -73,4 +73,28 @@ class ManageUserController extends Controller
         $ket = $user->user_type == 'dosen' ? 'NIP' : 'NIM (huruf besar)';
         return redirect('data-mahasiswa')->with('success', "<strong>Berhasil!</strong> Password user telah direset ke $ket.");
     }
+
+    public function editBiodata()
+    {
+        $data = User::with('biodata_mhs')->find(auth()->user()->id);
+        return view('main.form-biodata', [
+            'data' => $data,
+        ]);
+    }
+
+    public function updateBiodata(Request $request, User $user)
+    {
+        $user->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+        ]);
+
+        $user->biodata_mhs->update([
+            'gender' => $request->gender,
+            'angkatan' => $request->angkatan,
+            'tgl_lahir' => $request->tgl_lahir,
+        ]);
+
+        return back()->with('success', 'Data berhasil diupdate.');
+    }
 }

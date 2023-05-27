@@ -27,7 +27,7 @@
                             <div class="card-body">
                                 <link rel="stylesheet" href="{{ asset('main-assets/css/timeline.css') }}">
                                 @php
-                                    $cekFile = App\Models\Skripsi::where('nim', auth()->user()->id)
+                                    $cekFile = App\Models\Skripsi::where('mhs_id', auth()->user()->id)
                                         ->get()
                                         ->first();
                                 @endphp
@@ -80,7 +80,7 @@
                                                     <select name="dosen1" id="combo-1" class="select" required>
                                                         <option value="">Dosen Pembimbing 1</option>
                                                         @forelse ($dosen as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                            <option value="{{ $item->id }}">{{ $item->nama }}
                                                             </option>
                                                         @empty
                                                             <option value="">Belum ada data dosen</option>
@@ -94,7 +94,7 @@
                                                     <select name="dosen2" id="combo-2" class="select" required>
                                                         <option value="">Dosen Pembimbing 2</option>
                                                         @forelse ($dosen as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                            <option value="{{ $item->id }}">{{ $item->nama }}
                                                             </option>
                                                         @empty
                                                             <option value="">Belum ada data dosen</option>

@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function authenticate(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
-            'id' => ['required'],
+            'username' => ['required'],
             'password' => ['required'],
         ]);
 
@@ -29,8 +29,8 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'id' => 'The provided credentials do not match our records.',
-        ])->onlyInput('id');
+            'username' => 'NIM atau password salah.',
+        ])->onlyInput('username');
     }
 
     public function logout(Request $request): RedirectResponse

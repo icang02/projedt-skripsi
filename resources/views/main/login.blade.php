@@ -33,15 +33,21 @@
             </div>
         @endif
 
+        @error('username')
+            <p class="text-danger text-center">{{ $message }}</p>
+        @enderror
+
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Masukkan nim/nip yang valid</p>
+                <p class="login-box-msg">Masukan username & password untuk login</p>
 
                 <form action="{{ url('login') }}" method="post">
-                    {{ csrf_field() }}
+                    @csrf
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="NIM / NIP" name="id" required>
+                        <input type="text" class="form-control" placeholder="Username" name="username" required
+                            value="{{ old('username') }}">
+
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -73,10 +79,11 @@
                     </div>
                 </form>
 
-
-                <p class="mb-0 mt-3">
-                    <a href="{{ url('register') }}" class="text-center">Register akun baru</a>
-                </p>
+                @if (request()->is('login'))
+                    <p class="mb-0 mt-3">
+                        <a href="{{ url('register') }}" class="text-center">Register akun mahasiswa</a>
+                    </p>
+                @endif
             </div>
             <!-- /.login-card-body -->
         </div>

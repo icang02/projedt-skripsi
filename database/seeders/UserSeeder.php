@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -15,52 +14,35 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // admin
         User::create([
-            'id' => 'admin',
-            'name' => 'Administrator',
+            'nama' => 'Admin',
+            'username' => 'admin',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('skripsi'),
-            'user_type' => 'admin',
+            'password' => bcrypt('user'),
+            'level' => 'admin',
         ]);
 
-        // Mahasiswa CUK
         User::create([
-            'id' => 'E1E120011',
-            'name' => 'Ilmi Faizan',
-            'email' => 'ilmifaizan1112@gmail.com',
-            'password' => Hash::make('skripsi'),
-            'user_type' => 'mahasiswa',
-        ]);
-        User::create([
-            'id' => 'E1E120059',
-            'name' => 'Andini Septiani',
-            'email' => 'andini@gmail.com',
-            'password' => Hash::make('skripsi'),
-            'user_type' => 'mahasiswa',
-        ]);
-        User::create([
-            'id' => 'E1E120082',
-            'name' => 'Muhammad Ikhwan',
-            'email' => 'ikwan@gmail.com',
-            'password' => Hash::make('skripsi'),
-            'user_type' => 'mahasiswa',
+            'nama' => 'Ilmi Faizan',
+            'username' => 'e1e120011',
+            'email' => 'ilmifaizan@gmail.com',
+            'password' => bcrypt('user'),
+            'level' => 'mahasiswa',
         ]);
 
-        // Dosen CUK
         User::create([
-            'id' => '321321321321321321',
-            'name' => 'Rizal Adi Saputra, S.T., M.Kom.',
-            'email' => 'rizaladisaputra@gmail.com',
-            'password' => Hash::make('skripsi'),
-            'user_type' => 'dosen',
+            'nama' => 'Dosen 1, S.Pd.',
+            'username' => '100000000000000000',
+            'email' => 'dosen1@gmail.com',
+            'password' => bcrypt('user'),
+            'level' => 'dosen',
         ]);
         User::create([
-            'id' => '123123123123123123',
-            'name' => 'Ilmi Saputra, S.T., M.Kom.',
-            'email' => 'bambangpramono@gmail.com',
-            'password' => Hash::make('skripsi'),
-            'user_type' => 'dosen',
+            'nama' => 'Dosen 2, S.T., M.T.',
+            'username' => '200000000000000000',
+            'email' => 'dosen2@gmail.com',
+            'password' => bcrypt('user'),
+            'level' => 'dosen',
         ]);
     }
 }

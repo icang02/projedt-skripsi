@@ -32,6 +32,10 @@ Route::post('register', [AuthController::class, 'registerProcess'])->middleware(
 // Route KELOLA SKRIPSI
 Route::get('tabel-skripsi', [SkripsiController::class, 'index'])->middleware('auth');
 
+
+// Route BIODATA MHS
+Route::get('biodata', [ManageUserController::class, 'editBiodata'])->middleware('auth');
+Route::put('update-biodata/{user}', [ManageUserController::class, 'updateBiodata'])->middleware('auth');
 // Route KELOLA USER
 Route::get('data-mahasiswa', [ManageUserController::class, 'index'])->middleware('auth');
 Route::get('data-mahasiswa/create', [ManageUserController::class, 'create'])->middleware('auth');

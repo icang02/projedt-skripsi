@@ -16,7 +16,7 @@
                      alt="User Image">
              </div>
              <div class="info">
-                 <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                 <a href="#" class="d-block">{{ auth()->user()->nama }}</a>
              </div>
          </div>
 
@@ -72,7 +72,7 @@
 
                  @can('mahasiswa')
                      <li class="nav-item">
-                         <a href="{{ url('logout') }}" class="nav-link">
+                         <a href="{{ url('biodata') }}" class="nav-link {{ request()->is('biodata') ? 'active' : '' }}">
                              <i class="nav-icon fas fa-edit"></i>
                              <p>
                                  Biodata Saya

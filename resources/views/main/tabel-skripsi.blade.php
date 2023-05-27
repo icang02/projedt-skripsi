@@ -52,10 +52,10 @@
                                                         <i class="fas fa-folder"></i> Lihat Skripsi
                                                     </a>
                                                 </td>
-                                                <td>{{ $skripsi->mahasiswa->name }}</td>
-                                                <td>{{ $skripsi->title }}</td>
-                                                <td>{{ $skripsi->dosen1->name }}</td>
-                                                <td>{{ $skripsi->dosen2->name }}</td>
+                                                <td>{{ $skripsi->mahasiswa->nama }}</td>
+                                                <td>{{ $skripsi->judul }}</td>
+                                                <td>{{ $skripsi->pembimbing_1->nama }}</td>
+                                                <td>{{ $skripsi->pembimbing_2->nama }}</td>
                                                 <td>
                                                     @php
                                                         if (($skripsi->file_skripsi && $skripsi->file_hasil && $skripsi->file_proposal) != null) {

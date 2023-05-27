@@ -13,12 +13,12 @@ class SkripsiController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->user_type == 'admin') {
+        if (auth()->user()->level == 'admin') {
             $data = Skripsi::all();
-        } else if (auth()->user()->user_type == 'dosen') {
-            $data = Skripsi::where('nip1', auth()->user()->id)->orWhere('nip2', auth()->user()->id)->get();
+        } else if (auth()->user()->level == 'dosen') {
+            $data = Skripsi::where('pembimbing1_id', auth()->user()->id)->orWhere('pembimbing2_id', auth()->user()->id)->get();
         }
-        // dd($data);
+
         return view('main.tabel-skripsi', [
             'data' => $data,
         ]);
@@ -26,8 +26,9 @@ class SkripsiController extends Controller
 
     public function timeline()
     {
+        $data = User::where('level', 'dosen')->get();
         return view('main.timeline', [
-            'dosen' => User::where('user_type', 'dosen')->get(),
+            'dosen' => $data,
         ]);
     }
 

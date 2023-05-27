@@ -26,15 +26,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Gate::define('admin', function (User $user) {
-            return $user->user_type == 'admin';
+            return $user->level == 'admin';
         });
 
         Gate::define('dosen', function (User $user) {
-            return $user->user_type == 'dosen';
+            return $user->level == 'dosen';
         });
 
         Gate::define('mahasiswa', function (User $user) {
-            return $user->user_type == 'mahasiswa';
+            return $user->level == 'mahasiswa';
         });
     }
 }

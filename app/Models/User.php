@@ -41,18 +41,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function skripsi_mahasiswa()
+    // relasi 1:1 user mahasiswa ke skripsi ++++
+    public function skripsi()
     {
-        return $this->hasOne(Skripsi::class, 'nim', 'id');
+        return $this->hasOne(Skripsi::class, 'user_id', 'id');
     }
 
-    public function skripsi_dosen1()
+    // relasi 1:1 user mahasiswa ke skripsi ++++
+    public function biodata_mhs()
     {
-        return $this->hasMany(Skripsi::class, 'nip1', 'id');
-    }
-
-    public function skripsi_dosen2()
-    {
-        return $this->hasMany(Skripsi::class, 'nip2', 'id');
+        return $this->hasOne(DataMahasiswa::class, 'user_id');
     }
 }

@@ -7,23 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Skripsi extends Model
 {
-    protected $guarded = [' '];
+    protected $guarded = [];
     public $timestamps = false;
 
     use HasFactory;
 
+    // relasi 1:1 skripsi ke user mahasiswa ++++
     public function mahasiswa()
     {
-        return $this->belongsTo(User::class, 'nim', 'id');
+        return $this->belongsTo(User::class, 'mhs_id');
     }
 
-    public function dosen1()
+    // relasi skripsi ke users pembimbing 1 ++++
+    public function pembimbing_1()
     {
-        return $this->belongsTo(User::class, 'nip1', 'id');
+        return $this->belongsTo(User::class, 'pembimbing1_id');
     }
 
-    public function dosen2()
+    // relasi skripsi ke users pembimbing 2 ++++
+    public function pembimbing_2()
     {
-        return $this->belongsTo(User::class, 'nip2', 'id');
+        return $this->belongsTo(User::class, 'pembimbing2_id');
     }
 }
