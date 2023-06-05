@@ -25,7 +25,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Daftar Mahasiswa yang Telah Ujian Skripsi</h3>
+                                <h3 class="card-title">Daftar Mahasiswa Yang Menyusun Tugas Akhir.</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -34,24 +34,79 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Aksi</th>
-                                            <th>Nama Mahasiswa</th>
+                                            <th>NIM</th>
+                                            <th>Nama Lengkap</th>
                                             <th>Judul</th>
                                             <th>Pembimbing 1</th>
                                             <th>Pembimbing 2</th>
                                             <th>Progress</th>
-                                            <th>Status</th>
-                                            <th>Tanggal Ujian</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Tanggal Ujian</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($data as $skripsi)
+                                            {{-- Modal download file --}}
+                                            <div class="modal fade" id="modalFile{{ $skripsi->id }}" tabindex="-1"
+                                                role="dialog">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Download File
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <form
+                                                                        action="{{ url("download-file-proposal/$skripsi->id") }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button
+                                                                            class="btn btn-danger btn-block">Proposal</button>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <form
+                                                                        action="{{ url("download-file-hasil/$skripsi->id") }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button
+                                                                            class="btn btn-info btn-block">Hasil</button>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <form
+                                                                        action="{{ url("download-file-skripsi/$skripsi->id") }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <button
+                                                                            class="btn btn-success btn-block">Skripsi</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Kembali</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
-                                                    <a class="btn btn-primary btn-sm badge" href="#">
-                                                        <i class="fas fa-folder"></i> Lihat Skripsi
-                                                    </a>
+                                                    <button class="btn btn-primary btn-sm badge" data-toggle="modal"
+                                                        data-target="#modalFile{{ $skripsi->id }}">
+                                                        <i class="fas fa-folder"></i> Lihat File
+                                                    </button>
                                                 </td>
+                                                <td>{{ strtoupper($skripsi->mahasiswa->username) }}</td>
                                                 <td>{{ $skripsi->mahasiswa->nama }}</td>
                                                 <td>{{ $skripsi->judul }}</td>
                                                 <td>{{ $skripsi->pembimbing_1->nama }}</td>
@@ -77,8 +132,16 @@
                                                             style="width: {{ $progress }}"></div>
                                                     </div>
                                                 </td>
-                                                <td><span class="badge badge-success">{{ $skripsi->status }}</span></td>
-                                                <td>{{ $skripsi->tgl_ujian }}</td>
+                                                <td class="text-center">
+                                                    @if (!is_null($skripsi->file_proposal) && is_null($skripsi->file_hasil) && is_null($skripsi->file_skripsi))
+                                                        <span class="badge badge-danger">Proposal</span>
+                                                    @elseif (!is_null($skripsi->file_proposal) && !is_null($skripsi->file_hasil) && is_null($skripsi->file_skripsi))
+                                                        <span class="badge badge-info">Hasil</span>
+                                                    @elseif (!is_null($skripsi->file_proposal) && !is_null($skripsi->file_hasil) && !is_null($skripsi->file_skripsi))
+                                                        <span class="badge badge-success">Skripsi</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">{{ $skripsi->tgl_ujian ?? '-' }}</td>
                                             </tr>
                                         @empty
                                             <tr>

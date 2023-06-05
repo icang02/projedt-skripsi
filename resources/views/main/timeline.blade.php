@@ -36,16 +36,16 @@
                                 <div class="process-wrapper">
                                     <div id="progress-bar-container">
                                         <ul>
-                                            <li class="step step01 active">
+                                            <li class="@if (isset($skripsiMhs)) step @endif step01 active">
                                                 <div class="step-inner">PROPOSAL</div>
                                             </li>
-                                            <li class="step step02">
+                                            <li class="@if (isset($skripsiMhs)) step @endif step02">
                                                 <div class="step-inner">HASIL</div>
                                             </li>
-                                            <li class="step step03">
+                                            <li class="@if (isset($skripsiMhs)) step @endif step03">
                                                 <div class="step-inner">SKRIPSI</div>
                                             </li>
-                                            <li class="step step04">
+                                            <li class="@if (isset($skripsiMhs)) step @endif step04">
                                                 <div class="step-inner">FINISH</div>
                                             </li>
                                         </ul>
@@ -62,11 +62,12 @@
                                                 {{ csrf_field() }}
                                                 <div class="mb-4">
                                                     <h6>Judul Tugas Akhir</h6>
-                                                    @if ($cekFile != null)
-                                                        <textarea name="judul" cols="90" rows="4" required>{{ $cekFile->title }}</textarea>
+                                                    @if (isset($skripsiMhs))
+                                                        <textarea name="judul" cols="90" rows="4" required>{{ $skripsiMhs->judul }}</textarea>
                                                     @else
                                                         <textarea name="judul" cols="90" rows="4" required></textarea>
                                                     @endif
+
                                                 </div>
 
                                                 <h2>
@@ -116,8 +117,8 @@
                                                 {{ csrf_field() }}
                                                 <div class="mb-4">
                                                     <h6>Judul Tugas Akhir</h6>
-                                                    @if ($cekFile != null)
-                                                        <textarea cols="90" rows="4" readonly>{{ $cekFile->title }}</textarea>
+                                                    @if (isset($skripsiMhs))
+                                                        <textarea cols="90" rows="4" readonly>{{ $skripsiMhs->judul }}</textarea>
                                                     @else
                                                         <textarea cols="90" rows="4" readonly></textarea>
                                                     @endif
@@ -140,8 +141,8 @@
                                                 {{ csrf_field() }}
                                                 <div class="mb-4">
                                                     <h6>Judul Tugas Akhir</h6>
-                                                    @if ($cekFile != null)
-                                                        <textarea name="judul" cols="90" rows="4" readonly>{{ $cekFile->title }}</textarea>
+                                                    @if (isset($skripsiMhs))
+                                                        <textarea name="judul" cols="90" rows="4" readonly>{{ $skripsiMhs->judul }}</textarea>
                                                     @else
                                                         <textarea name="judul" cols="90" rows="4" readonly></textarea>
                                                     @endif
@@ -169,20 +170,20 @@
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
                                 {{-- Cek file apa yg sudah diupload --}}
-                                @if ($cekFile != null)
-                                    @if (!is_null($cekFile->file_proposal) && is_null($cekFile->file_hasil) && is_null($cekFile->file_skripsi))
+                                @if (isset($skripsiMhs))
+                                    @if (!is_null($skripsiMhs->file_proposal) && is_null($skripsiMhs->file_hasil) && is_null($skripsiMhs->file_skripsi))
                                         <script>
                                             jQuery(function() {
                                                 jQuery('.step02').click();
                                             })
                                         </script>
-                                    @elseif (!is_null($cekFile->file_proposal) && !is_null($cekFile->file_hasil) && is_null($cekFile->file_skripsi))
+                                    @elseif (!is_null($skripsiMhs->file_proposal) && !is_null($skripsiMhs->file_hasil) && is_null($skripsiMhs->file_skripsi))
                                         <script>
                                             jQuery(function() {
                                                 jQuery('.step03').click();
                                             })
                                         </script>
-                                    @elseif (!is_null($cekFile->file_proposal) && !is_null($cekFile->file_hasil) && !is_null($cekFile->file_skripsi))
+                                    @elseif (!is_null($skripsiMhs->file_proposal) && !is_null($skripsiMhs->file_hasil) && !is_null($skripsiMhs->file_skripsi))
                                         <script>
                                             jQuery(function() {
                                                 jQuery('.step04').click();
@@ -202,22 +203,37 @@
                                         $("#line-progress").css("width", "0%");
                                         $(".discovery").addClass("active").siblings().removeClass("active");
                                     });
-
-                                    $(".step02").click(function() {
-                                        $("#line-progress").css("width", "33%");
-                                        $(".strategy").addClass("active").siblings().removeClass("active");
-                                    });
-
-                                    $(".step03").click(function() {
-                                        $("#line-progress").css("width", "66%");
-                                        $(".creative").addClass("active").siblings().removeClass("active");
-                                    });
-
-                                    $(".step04").click(function() {
-                                        $("#line-progress").css("width", "100%");
-                                        $(".production").addClass("active").siblings().removeClass("active");
-                                    });
                                 </script>
+
+                                @if (isset($skripsiMhs))
+                                    @if ($skripsiMhs->file_proposal != null)
+                                        <script>
+                                            $(".step02").click(function() {
+                                                $("#line-progress").css("width", "33%");
+                                                $(".strategy").addClass("active").siblings().removeClass("active");
+                                            });
+                                        </script>
+                                    @endif
+
+                                    @if ($skripsiMhs->file_hasil != null)
+                                        <script>
+                                            $(".step03").click(function() {
+                                                $("#line-progress").css("width", "66%");
+                                                $(".creative").addClass("active").siblings().removeClass("active");
+                                            });
+                                        </script>
+                                    @endif
+
+                                    @if ($skripsiMhs->file_skripsi != null)
+                                        <script>
+                                            $(".step04").click(function() {
+                                                $("#line-progress").css("width", "100%");
+                                                $(".production").addClass("active").siblings().removeClass("active");
+                                            });
+                                        </script>
+                                    @endif
+                                @endif
+
                             </div>
                         </div>
                     </div>

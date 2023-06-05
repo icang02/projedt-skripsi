@@ -53,9 +53,12 @@ Route::get('/edit-biodata', function () {
 
 // Route TIMELINE
 Route::get('timeline', [SkripsiController::class, 'timeline'])->middleware('auth');
-// Route UPLOAD FILE PROPOSAL
+// Route UPLOAD DAN DOWNLOAD FILE PROPOSAL
+Route::post('download-file-proposal/{skripsiMhs}', [SkripsiController::class, 'downloadProposal'])->middleware('auth');
 Route::post('upload-file-proposal', [SkripsiController::class, 'uploadProposal'])->middleware('auth');
-// Route UPLOAD FILE HASIL
+// Route UPLOAD DAN DOWNLOAD FILE HASIL
+Route::post('download-file-hasil/{skripsiMhs}', [SkripsiController::class, 'downloadHasil'])->middleware('auth');
 Route::post('upload-file-hasil', [SkripsiController::class, 'uploadHasil'])->middleware('auth');
-// Route UPLOAD FILE SKRIPSI
+// Route UPLOAD DAN DOWNLOAD FILE SKRIPSI
+Route::post('download-file-skripsi/{skripsiMhs}', [SkripsiController::class, 'downloadSkripsi'])->middleware('auth');
 Route::post('upload-file-skripsi', [SkripsiController::class, 'uploadSkripsi'])->middleware('auth');
