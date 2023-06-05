@@ -30,11 +30,11 @@
                         placeholder="Masukkan nama lengkap" required>
                 </div>
                 <div class="form-group">
-                    <label for="nip">NIM</label>
-                    <input value="{{ old('nim') }}" type="text" id="nim" name="nim"
+                    <label for="username">NIM</label>
+                    <input value="{{ old('username') }}" type="text" id="username" name="username"
                         placeholder="Masukkan NIM user" required maxlength="9"
-                        @error('nim') style="border: solid; border-color: rgba(255,0,0,.3)" @enderror>
-                    @error('nim')
+                        @error('username') style="border: solid; border-color: rgba(255,0,0,.3)" @enderror>
+                    @error('username')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>

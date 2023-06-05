@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('data_mahasiswa', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('angkatan', 10)->nullable();

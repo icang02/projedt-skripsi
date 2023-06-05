@@ -47,7 +47,7 @@
                                             <th>Aksi</th>
                                             <th>Nama</th>
                                             <th>NIM / NIP</th>
-                                            <th>Tipe User</th>
+                                            <th>Level</th>
                                             <th>E-mail</th>
                                         </tr>
                                     </thead>
@@ -58,7 +58,7 @@
                                                 <td>
                                                     <a class="btn btn-primary badge"
                                                         href="{{ url('data-mahasiswa/edit/' . $item->id) }}">Edit</a>
-                                                    @if ($item->user_type == 'admin' && auth()->user()->id == $item->id)
+                                                    @if ($item->level == 'admin' && auth()->user()->id == $item->id)
                                                         <button class="btn btn-danger badge disabled">Hapus</button>
                                                     @else
                                                         <form action="{{ url('data-mahasiswa/destroy/' . $item->id) }}"
@@ -70,9 +70,9 @@
                                                         </form>
                                                     @endif
                                                 </td>
-                                                <td>{{ $item->name }}</td>
-                                                <td>{{ strtoupper($item->id) }}</td>
-                                                <td>{{ ucfirst($item->user_type) }}</td>
+                                                <td>{{ $item->nama }}</td>
+                                                <td>{{ strtoupper($item->username) }}</td>
+                                                <td>{{ ucfirst($item->level) }}</td>
                                                 <td>{{ $item->email }}</td>
                                             </tr>
                                         @empty

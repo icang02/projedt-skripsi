@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('judul');
 
             $table->unsignedBigInteger('pembimbing1_id');
-            $table->foreign('pembimbing1_id')->references('id')->on('users');
+            $table->foreign('pembimbing1_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('pembimbing2_id');
-            $table->foreign('pembimbing2_id')->references('id')->on('users');
+            $table->foreign('pembimbing2_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('status');
             $table->date('tgl_ujian')->nullable();

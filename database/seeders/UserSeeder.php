@@ -44,5 +44,13 @@ class UserSeeder extends Seeder
             'password' => bcrypt('user'),
             'level' => 'dosen',
         ]);
+
+        User::create([
+            'nama' => 'Muhammad Ikhwan',
+            'username' => 'e1e120057',
+            'email' => 'ikhwan@gmail.com',
+            'password' => bcrypt('user'),
+            'level' => 'mahasiswa',
+        ]);
     }
 }

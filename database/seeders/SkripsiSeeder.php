@@ -23,7 +23,7 @@ class SkripsiSeeder extends Seeder
             'pembimbing2_id' => 3,
             'status' => 'Proposal',
             'tgl_ujian' => '2023-04-10',
-            'file_proposal' => 'skripsi.pdf',
+            'file_proposal' => null,
             'file_hasil' => null,
             'file_skripsi' => null,
         ]);

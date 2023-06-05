@@ -50,16 +50,16 @@ class AuthController extends Controller
     public function registerProcess(Request $request)
     {
         $request->validate([
-            'nim' => 'unique:users,id',
+            'username' => 'unique:users,username',
             'email' => 'unique:users,email',
         ]);
 
         User::create([
-            'id' => strtoupper($request->nim),
-            'name' => $request->nama,
+            'nama' => $request->nama,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_type' => 'mahasiswa',
+            'level' => 'mahasiswa',
         ]);
         return redirect('/login')->with('success', 'Akun berhasil dibuat. Silahkan login.');
     }

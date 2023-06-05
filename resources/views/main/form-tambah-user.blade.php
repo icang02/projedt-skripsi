@@ -64,7 +64,7 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="user_type">Tipe User</label>
+                                                <label for="user_type">Level</label>
                                                 <select class="custom-select" name="user_type">
                                                     <option value="">Select menu</option>
                                                     <option value="admin"

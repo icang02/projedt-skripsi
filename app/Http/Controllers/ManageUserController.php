@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataMahasiswa;
+use App\Models\Skripsi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +13,7 @@ class ManageUserController extends Controller
     public function index()
     {
         return view('main.data-mahasiswa', [
-            'data' => User::orderBy('user_type')->get(),
+            'data' => User::orderBy('level')->get(),
         ]);
     }
 
@@ -31,11 +33,11 @@ class ManageUserController extends Controller
         ]);
 
         User::create([
-            'id' => $request->id,
-            'name' => $request->name,
+            'username' => $request->id,
+            'nama' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_type' => $request->user_type,
+            'level' => $request->user_type,
         ]);
         return back()->with('success', '<strong>Berhasil!</strong> User baru telah ditambahkan.');
     }
@@ -50,16 +52,22 @@ class ManageUserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update([
-            'name' => $request->name,
-            'user_type' => $request->user_type,
+            'nama' => $request->nama,
+            'level' => $request->level,
             'email' => $request->email,
-            'id' => $request->id,
+            'username' => $request->username,
         ]);
         return redirect('data-mahasiswa')->with('success', '<strong>Berhasil!</strong> Data user berhasil diubah.');
     }
 
     public function destroy(User $user)
     {
+        $biodata = $user->biodata_mhs;
+        if ($biodata) $biodata->delete();
+
+        $skripsi = Skripsi::where('mhs_id', $user->id)->get()->first();
+        if ($skripsi) $skripsi->delete();
+
         $name = $user->name;
         $user->delete();
         return back()->with('success', "User <i><b>\"$name\"</b></i> berhasil dihapus.");
@@ -68,9 +76,9 @@ class ManageUserController extends Controller
     public function resetPassword(User $user)
     {
         $user->update([
-            'password' => Hash::make($user->id),
+            'password' => Hash::make(strtolower($user->username)),
         ]);
-        $ket = $user->user_type == 'dosen' ? 'NIP' : 'NIM (huruf besar)';
+        $ket = $user->level == 'dosen' ? 'NIP' : 'NIM (huruf kecil)';
         return redirect('data-mahasiswa')->with('success', "<strong>Berhasil!</strong> Password user telah direset ke $ket.");
     }
 

@@ -61,32 +61,50 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <form
-                                                                        action="{{ url("download-file-proposal/$skripsi->id") }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        <button
+                                                                <div class="col-md-4 text-center">
+                                                                    @if ($skripsi->file_proposal == null)
+                                                                        <button disabled
                                                                             class="btn btn-danger btn-block">Proposal</button>
-                                                                    </form>
+                                                                        <small>Belum ada</small>
+                                                                    @else
+                                                                        <form
+                                                                            action="{{ url("download-file-proposal/$skripsi->id") }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            <button
+                                                                                class="btn btn-danger btn-block">Proposal</button>
+                                                                        </form>
+                                                                    @endif
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <form
-                                                                        action="{{ url("download-file-hasil/$skripsi->id") }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        <button
+                                                                <div class="col-md-4 text-center">
+                                                                    @if ($skripsi->file_hasil == null)
+                                                                        <button disabled
                                                                             class="btn btn-info btn-block">Hasil</button>
-                                                                    </form>
+                                                                        <small>Belum ada</small>
+                                                                    @else
+                                                                        <form
+                                                                            action="{{ url("download-file-hasil/$skripsi->id") }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            <button
+                                                                                class="btn btn-info btn-block">Hasil</button>
+                                                                        </form>
+                                                                    @endif
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <form
-                                                                        action="{{ url("download-file-skripsi/$skripsi->id") }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        <button
+                                                                <div class="col-md-4 text-center">
+                                                                    @if ($skripsi->file_skripsi == null)
+                                                                        <button disabled
                                                                             class="btn btn-success btn-block">Skripsi</button>
-                                                                    </form>
+                                                                        <small>Belum ada</small>
+                                                                    @else
+                                                                        <form
+                                                                            action="{{ url("download-file-skripsi/$skripsi->id") }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            <button
+                                                                                class="btn btn-success btn-block">Skripsi</button>
+                                                                        </form>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -123,7 +141,7 @@
                                                             $progress = '33.33%';
                                                             $bgProgress = 'danger';
                                                         } else {
-                                                            $progress = '0%';
+                                                            $progress = '10%';
                                                             $bgProgress = 'danger';
                                                         }
                                                     @endphp
@@ -139,6 +157,8 @@
                                                         <span class="badge badge-info">Hasil</span>
                                                     @elseif (!is_null($skripsi->file_proposal) && !is_null($skripsi->file_hasil) && !is_null($skripsi->file_skripsi))
                                                         <span class="badge badge-success">Skripsi</span>
+                                                    @else
+                                                        -
                                                     @endif
                                                 </td>
                                                 <td class="text-center">{{ $skripsi->tgl_ujian ?? '-' }}</td>

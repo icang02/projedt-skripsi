@@ -42,12 +42,12 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="name">Nama Lengkap</label>
-                                                <input type="name" class="form-control" id="name"
-                                                    placeholder="Enter name" name="name"
-                                                    value="{{ old('name', $user->name) }}">
-                                                @error('name')
-                                                    <small id="name"
+                                                <label for="nama">Nama Lengkap</label>
+                                                <input type="nama" class="form-control" id="nama"
+                                                    placeholder="Enter name" name="nama"
+                                                    value="{{ old('nama', $user->nama) }}">
+                                                @error('nama')
+                                                    <small id="nama"
                                                         class="form-text text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
@@ -67,30 +67,30 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="user_type">Tipe User</label>
-                                                <select class="custom-select" name="user_type">
+                                                <label for="level">Level</label>
+                                                <select class="custom-select" name="level">
                                                     <option value="">Select menu</option>
                                                     <option value="admin"
-                                                        @if (old('user_type', $user->user_type) == 'admin') selected @endif>Admin</option>
+                                                        @if (old('level', $user->level) == 'admin') selected @endif>Admin</option>
                                                     <option value="dosen"
-                                                        @if (old('user_type', $user->user_type) == 'dosen') selected @endif>Dosen</option>
+                                                        @if (old('level', $user->level) == 'dosen') selected @endif>Dosen</option>
                                                     <option value="mahasiswa"
-                                                        @if (old('user_type', $user->user_type) == 'mahasiswa') selected @endif>Mahasiswa</option>
+                                                        @if (old('level', $user->level) == 'mahasiswa') selected @endif>Mahasiswa</option>
                                                 </select>
-                                                @error('user_type')
-                                                    <small id="user_type"
+                                                @error('level')
+                                                    <small id="level"
                                                         class="form-text text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="id">NIM / NIP</label>
-                                                <input type="text" class="form-control" id="id"
-                                                    placeholder="Enter NIM / NIP" name="id" maxlength="18"
-                                                    value="{{ old('id', $user->id) }}">
-                                                @error('id')
-                                                    <small id="id"
+                                                <label for="username">NIM / NIP</label>
+                                                <input type="text" class="form-control" id="username"
+                                                    placeholder="Enter NIM / NIP" name="username" maxlength="18"
+                                                    value="{{ old('username', $user->username) }}">
+                                                @error('username')
+                                                    <small id="username"
                                                         class="form-text text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
