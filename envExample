@@ -1,6 +1,6 @@
-APP_NAME=Laravel
+APP_NAME=Skripsi
 APP_ENV=local
-APP_KEY=base64:X+Cgm2XTCeyrAeMJAt766W2ghoaLbUmwo8fcZWbuMWo=
+APP_KEY=
 APP_DEBUG=true
 APP_URL=http://localhost
 
