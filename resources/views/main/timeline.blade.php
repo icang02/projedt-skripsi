@@ -81,7 +81,8 @@
                                                     <select name="dosen1" id="combo-1" class="select" required>
                                                         <option value="">Dosen Pembimbing 1</option>
                                                         @forelse ($dosen as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nama }}
+                                                            <option @if ($item->id == old('dosen1', isset($skripsiMhs) ? $skripsiMhs->pembimbing1_id : null)) selected @endif
+                                                                value="{{ $item->id }}">{{ $item->nama }}
                                                             </option>
                                                         @empty
                                                             <option value="">Belum ada data dosen</option>
@@ -95,7 +96,8 @@
                                                     <select name="dosen2" id="combo-2" class="select" required>
                                                         <option value="">Dosen Pembimbing 2</option>
                                                         @forelse ($dosen as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nama }}
+                                                            <option @if ($item->id == old('dosenw', isset($skripsiMhs) ? $skripsiMhs->pembimbing2_id : null)) selected @endif
+                                                                value="{{ $item->id }}">{{ $item->nama }}
                                                             </option>
                                                         @empty
                                                             <option value="">Belum ada data dosen</option>

@@ -16,7 +16,10 @@ class DataMahasiswaSeeder extends Seeder
     public function run()
     {
         DataMahasiswa::create([
-            'user_id' => 2,
+            'user_id' => 7,
+        ]);
+        DataMahasiswa::create([
+            'user_id' => 8,
         ]);
     }
 }
