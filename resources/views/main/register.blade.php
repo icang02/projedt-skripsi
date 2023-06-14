@@ -10,59 +10,93 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('main-assets/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('main-assets') }}/plugins/fontawesome-free/css/all.min.css">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('main-assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('main-assets') }}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('main-assets/dist/css/adminlte.min.css') }}">
-    <link rel="stylesheet" href="main-assets/dist/css/regist.css">
+    <link rel="stylesheet" href="{{ asset('main-assets') }}/dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition login-page">
-    <section class="content">
-        <div class="container">
-            <form class="form" action="{{ url('register') }}" method="post">
-                @csrf
-                <h2>REGISTER</h2>
-                <div class="form-group">
-                    <label for="nama">Nama Lengkap</label>
-                    <input value="{{ old('nama') }}" type="text" id="nama" name="nama"
-                        placeholder="Masukkan nama lengkap" required>
-                </div>
-                <div class="form-group">
-                    <label for="username">NIM</label>
-                    <input value="{{ old('username') }}" type="text" id="username" name="username"
-                        placeholder="Masukkan NIM user" required maxlength="9"
-                        @error('username') style="border: solid; border-color: rgba(255,0,0,.3)" @enderror>
-                    @error('username')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input value="{{ old('email') }}" type="email" id="email" name="email"
-                        placeholder="Masukkan email user" required
-                        @error('email') style="border: solid; border-color: rgba(255,0,0,.3)" @enderror>
-                    @error('email')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Masukkan password user" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit">Submit</button>
-                    <button type="button" onclick="window.location.href='/login'">Kembali</button>
-                </div>
-            </form>
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>Register</b></a>
         </div>
-    </section>
+
+        {{-- Alert --}}
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        {{-- @error('username')
+            <p class="text-danger text-center">{{ $message }}</p>
+        @enderror --}}
+
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Lengkapi form dibawah ini</p>
+
+                <form accept="{{ url('register') }}" method="post">
+                    @csrf
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input value="{{ old('nama') }}" type="text" class="form-control" id="nama"
+                            name="nama" placeholder="Masukan nama lengkap.." required>
+                        @error('nama')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">NIM</label>
+                        <input value="{{ old('username') }}" name="username" type="text" class="form-control"
+                            id="username" name="username" placeholder="Masukan NIM.." required>
+                        @error('username')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input value="{{ old('email') }}" name="email" type="email" class="form-control"
+                            id="email" placeholder="Masukan email.." required>
+                        @error('email')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input name="password" type="password" class="form-control" id="password"
+                            placeholder="Masukan password.." required>
+                        @error('password')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </form>
+
+                <p class="mb-0 mt-3">
+                    <a href="{{ url('login') }}" class="text-center">Ke halaman login</a>
+                </p>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
 
     <!-- jQuery -->
-    <script src="{{ asset('main-assets/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('main-assets') }}/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('main-assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('main-assets') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('main-assets/dist/js/adminlte.js') }}"></script>
+    <script src="{{ asset('main-assets') }}/dist/js/adminlte.min.js"></script>
 </body>
+
+</html>

@@ -99,7 +99,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="id" class="d-block">Reset password user ke
-                                                    {{ $user->user_type == 'dosen' ? 'NIP' : 'NIM' }}</label>
+                                                    {{ $user->level == 'dosen' ? 'NIP' : 'NIM' }}</label>
                                                 <a href="{{ url("reset-password/$user->id") }}" class="btn btn-info"
                                                     onclick="return confirm('Password user akan direset.')">Reset
                                                     Password</a>

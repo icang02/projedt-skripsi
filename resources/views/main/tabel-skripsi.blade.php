@@ -23,6 +23,16 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
+
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {!! session('success') !!}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Daftar Mahasiswa Yang Menyusun Tugas Akhir.</h3>
@@ -161,11 +171,58 @@
                                                         -
                                                     @endif
                                                 </td>
-                                                <td class="text-center">{{ $skripsi->tgl_ujian ?? '-' }}</td>
+                                                <td class="text-center">
+                                                    {{ $skripsi->tgl_ujian ?? '-' }}
+                                                    @can('admin')
+                                                        <button class="btn btn-info badge d-block mx-auto" data-toggle="modal"
+                                                            data-target="#modalTanggal">Edit</button>
+                                                    @endcan
+                                                </td>
+
+                                                @can('admin')
+                                                    {{-- Modal Input Tanggal --}}
+                                                    <div class="modal fade" id="modalTanggal" tabindex="-1"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-sm">
+                                                            <form
+                                                                action="{{ url('tabel-skripsi/tanggal-ujian/update/' . $skripsi->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('put')
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Tanggal
+                                                                            Ujian
+                                                                        </h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+
+                                                                        <div class="form-group">
+                                                                            <input name="tgl_ujian" type="date"
+                                                                                value="{{ old('tgl_ujian', $skripsi->tgl_ujian) }}"
+                                                                                class="form-control" id="tgl_ujian" required>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Close</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary">Simpan</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                @endcan
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="9">Belum ada data skripsi.</td>
+                                                <td colspan="10" class="text-center">Belum ada data skripsi.</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

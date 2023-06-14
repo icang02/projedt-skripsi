@@ -13,7 +13,7 @@
                       <div class="col-sm-6">
                           <ol class="breadcrumb float-sm-right">
                               <li class="breadcrumb-item"><a href="#">Home</a></li>
-                              <li class="breadcrumb-item active">Dashboard v1</li>
+                              <li class="breadcrumb-item active">Dashboard</li>
                           </ol>
                       </div><!-- /.col -->
                   </div><!-- /.row -->
@@ -24,78 +24,137 @@
           <!-- Main content -->
           <section class="content">
               <div class="container-fluid">
-                  <!-- Small boxes (Stat box) -->
-                  <div class="row">
-                      <div class="col-lg-3 col-6">
-                          <!-- small box -->
-                          <div class="small-box bg-info">
-                              <div class="inner">
-                                  <h3>150</h3>
 
-                                  <p>New Orders</p>
+                  @can('admin')
+                      @php
+                          $countMhs = App\Models\User::where('level', 'mahasiswa')
+                              ->get()
+                              ->count();
+                          $countProposal = App\Models\Skripsi::where('file_proposal', '!=', null)
+                              ->get()
+                              ->count();
+                          $countHasil = App\Models\Skripsi::where('file_hasil', '!=', null)
+                              ->get()
+                              ->count();
+                          $countSkripsi = App\Models\Skripsi::where('file_skripsi', '!=', null)
+                              ->get()
+                              ->count();
+                      @endphp
+
+                      <div class="row">
+                          <div class="col-lg-3 col-6">
+                              <!-- small box -->
+                              <div class="small-box bg-info">
+                                  <div class="inner">
+                                      <h3>{{ $countMhs }}</h3>
+
+                                      <p>Mahasiswa</p>
+                                  </div>
+                                  <div class="icon">
+                                      <i class="ion ion-bag"></i>
+                                  </div>
+                                  <a href="{{ url('tabel-skripsi') }}" class="small-box-footer">More info <i
+                                          class="fas fa-arrow-circle-right"></i></a>
                               </div>
-                              <div class="icon">
-                                  <i class="ion ion-bag"></i>
+                          </div>
+                          <!-- ./col -->
+                          <div class="col-lg-3 col-6">
+                              <!-- small box -->
+                              <div class="small-box bg-danger">
+                                  <div class="inner">
+                                      <h3>{{ $countProposal }}</h3>
+
+                                      <p>File Proposal</p>
+                                  </div>
+                                  <div class="icon">
+                                      <i class="ion ion-android-checkmark-circle"></i>
+                                  </div>
+                                  <a href="{{ url('tabel-skripsi') }}" class="small-box-footer">More info
+                                      <i class="fas fa-arrow-circle-right"></i></a>
                               </div>
-                              <a href="#" class="small-box-footer">More info <i
-                                      class="fas fa-arrow-circle-right"></i></a>
+                          </div>
+                          <!-- ./col -->
+                          <div class="col-lg-3 col-6">
+                              <!-- small box -->
+                              <div class="small-box bg-warning">
+                                  <div class="inner">
+                                      <h3>{{ $countHasil }}</h3>
+
+                                      <p>File Hasil</p>
+                                  </div>
+                                  <div class="icon">
+                                      <i class="ion ion-person-add"></i>
+                                  </div>
+                                  <a href="{{ url('tabel-skripsi') }}" class="small-box-footer">More info
+                                      <i class="fas fa-arrow-circle-right"></i></a>
+                              </div>
+                          </div>
+                          <!-- ./col -->
+                          <div class="col-lg-3 col-6">
+                              <!-- small box -->
+                              <div class="small-box bg-success">
+                                  <div class="inner">
+                                      <h3>{{ $countSkripsi }}</h3>
+
+                                      <p>File Skripsi</p>
+                                  </div>
+                                  <div class="icon">
+                                      <i class="ion ion-pie-graph"></i>
+                                  </div>
+                                  <a href="{{ url('tabel-skripsi') }}" class="small-box-footer">More info
+                                      <i class="fas fa-arrow-circle-right"></i></a>
+                              </div>
+                          </div>
+                          <!-- ./col -->
+                      </div>
+                  @endcan
+
+                  @can('dosen')
+                      @php
+                          $countMhs = App\Models\Skripsi::where('pembimbing1_id', auth()->user()->id)
+                              ->orWhere('pembimbing2_id', auth()->user()->id)
+                              ->get()
+                              ->count();
+                      @endphp
+
+                      <div class="row">
+                          <div class="col-lg-12 col-6">
+                              <!-- small box -->
+                              <div class="small-box bg-info">
+                                  <div class="inner">
+                                      <h3>{{ $countMhs }}</h3>
+
+                                      <p>Mahasiswa Bimbingan Saya</p>
+                                  </div>
+                                  <div class="icon">
+                                      <i class="ion ion-bag"></i>
+                                  </div>
+                                  <a href="{{ url('tabel-skripsi') }}" class="small-box-footer">More info <i
+                                          class="fas fa-arrow-circle-right"></i></a>
+                              </div>
                           </div>
                       </div>
-                      <!-- ./col -->
-                      <div class="col-lg-3 col-6">
-                          <!-- small box -->
-                          <div class="small-box bg-success">
-                              <div class="inner">
-                                  <h3>53<sup style="font-size: 20px">%</sup></h3>
+                  @endcan
 
-                                  <p>Bounce Rate</p>
+                  @can('mahasiswa')
+                      <div class="row">
+                          <div class="col-lg-12 col-6">
+                              <!-- small box -->
+                              <div class="small-box bg-info">
+                                  <div class="inner">
+                                      <h3>{{ strtoupper(auth()->user()->username) }}</h3>
+
+                                      <p>Selamat datang, {{ auth()->user()->nama }}</p>
+                                  </div>
+                                  <div class="icon">
+                                      <i class="ion ion-bag"></i>
+                                  </div>
+                                  <a href="{{ url('timeline') }}" class="small-box-footer">More info <i
+                                          class="fas fa-arrow-circle-right"></i></a>
                               </div>
-                              <div class="icon">
-                                  <i class="ion ion-stats-bars"></i>
-                              </div>
-                              <a href="#" class="small-box-footer">More info <i
-                                      class="fas fa-arrow-circle-right"></i></a>
                           </div>
                       </div>
-                      <!-- ./col -->
-                      <div class="col-lg-3 col-6">
-                          <!-- small box -->
-                          <div class="small-box bg-warning">
-                              <div class="inner">
-                                  <h3>44</h3>
-
-                                  <p>User Registrations</p>
-                              </div>
-                              <div class="icon">
-                                  <i class="ion ion-person-add"></i>
-                              </div>
-                              <a href="#" class="small-box-footer">More info <i
-                                      class="fas fa-arrow-circle-right"></i></a>
-                          </div>
-                      </div>
-                      <!-- ./col -->
-                      <div class="col-lg-3 col-6">
-                          <!-- small box -->
-                          <div class="small-box bg-danger">
-                              <div class="inner">
-                                  <h3>65</h3>
-
-                                  <p>Unique Visitors</p>
-                              </div>
-                              <div class="icon">
-                                  <i class="ion ion-pie-graph"></i>
-                              </div>
-                              <a href="#" class="small-box-footer">More info <i
-                                      class="fas fa-arrow-circle-right"></i></a>
-                          </div>
-                      </div>
-                      <!-- ./col -->
-                  </div>
-                  <!-- /.row -->
-                  <!-- Main row -->
-
-                  <!-- /.row (main row) -->
-              </div><!-- /.container-fluid -->
+                  @endcan
           </section>
           <!-- /.content -->
       </div>

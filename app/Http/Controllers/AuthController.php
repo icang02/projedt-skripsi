@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataMahasiswa;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -54,13 +56,20 @@ class AuthController extends Controller
             'email' => 'unique:users,email',
         ]);
 
-        User::create([
-            'nama' => $request->nama,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'level' => 'mahasiswa',
-        ]);
+        $userId = DB::table('users')->insertGetId(
+            [
+                'nama' => $request->nama,
+                'username' => strtolower($request->username),
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'level' => 'mahasiswa',
+            ]
+        );
+
+        DataMahasiswa::create([
+            'user_id' => $userId
+        ]);;
+
         return redirect('/login')->with('success', 'Akun berhasil dibuat. Silahkan login.');
     }
 }

@@ -31,6 +31,7 @@ Route::post('register', [AuthController::class, 'registerProcess'])->middleware(
 
 // Route KELOLA SKRIPSI
 Route::get('tabel-skripsi', [SkripsiController::class, 'index'])->middleware('auth');
+Route::put('tabel-skripsi/tanggal-ujian/update/{skripsi}', [SkripsiController::class, 'editTglUjian'])->middleware('auth');
 
 
 // Route BIODATA MHS

@@ -135,4 +135,12 @@ class SkripsiController extends Controller
         ]);
         return back()->with('success', 'File hasil berhasil disimpan');
     }
+
+    public function editTglUjian(Request $request, Skripsi $skripsi)
+    {
+        $skripsi->update([
+            'tgl_ujian' => $request->tgl_ujian
+        ]);
+        return back()->with('success', 'Tanggal ujian diupdate.');
+    }
 }
