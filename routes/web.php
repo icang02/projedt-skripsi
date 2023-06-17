@@ -47,13 +47,14 @@ Route::delete('data-mahasiswa/destroy/{user}', [ManageUserController::class, 'de
 
 // Route RESET PASSWORD
 Route::get('reset-password/{user}', [ManageUserController::class, 'resetPassword'])->middleware('auth');
-
 Route::get('/edit-biodata', function () {
     return view('main.edit-biodata');
 });
 
 // Route TIMELINE
 Route::get('timeline', [SkripsiController::class, 'timeline'])->middleware('auth');
+// ROUTE PENGJUAN JUDUL
+Route::post('pengajuan-judul', [SkripsiController::class, 'pengajuanJudul'])->middleware('auth');
 // Route UPLOAD DAN DOWNLOAD FILE PROPOSAL
 Route::post('download-file-proposal/{skripsiMhs}', [SkripsiController::class, 'downloadProposal'])->middleware('auth');
 Route::post('upload-file-proposal', [SkripsiController::class, 'uploadProposal'])->middleware('auth');

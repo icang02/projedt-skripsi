@@ -81,20 +81,13 @@ class SkripsiController extends Controller
         if ($skripsiMhs == null) {
             $fileProposal = $request->file('file_proposal')->store('file_proposal');
             Skripsi::create([
-                'judul' => $request->judul,
                 'mhs_id' => auth()->user()->id,
-                'pembimbing1_id' => $request->dosen1,
-                'pembimbing2_id' => $request->dosen2,
-                'status' => 'Proposal',
                 'file_proposal' => $fileProposal,
             ]);
         } else {
             Storage::delete($skripsiMhs->file_proposal);
             $fileProposal = $request->file('file_proposal')->store('file_proposal');
             $skripsiMhs->update([
-                'judul' => $request->judul,
-                'pembimbing1_id' => $request->dosen1,
-                'pembimbing2_id' => $request->dosen2,
                 'file_proposal' => $fileProposal,
             ]);
         }
@@ -142,5 +135,27 @@ class SkripsiController extends Controller
             'tgl_ujian' => $request->tgl_ujian
         ]);
         return back()->with('success', 'Tanggal ujian diupdate.');
+    }
+
+    public function pengajuanJudul(Request $request)
+    {
+        // cek data mahasiswa sudah ada atau belum di tabel skripsi
+        $skripsiMhs = Skripsi::where('mhs_id', auth()->user()->id)->get()->first();
+        if ($skripsiMhs == null) {
+            Skripsi::create([
+                'judul' => $request->judul,
+                'mhs_id' => auth()->user()->id,
+                'pembimbing1_id' => $request->dosen1,
+                'pembimbing2_id' => $request->dosen2,
+            ]);
+        } else {
+            $skripsiMhs->update([
+                'judul' => $request->judul,
+                'pembimbing1_id' => $request->dosen1,
+                'pembimbing2_id' => $request->dosen2,
+            ]);
+        }
+
+        return back()->with('success', 'Judul berhasil diajukan.');
     }
 }

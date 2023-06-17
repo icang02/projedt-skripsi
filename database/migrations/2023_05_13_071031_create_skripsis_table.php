@@ -17,15 +17,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('mhs_id');
             $table->foreign('mhs_id')->references('id')->on('users');
-
             $table->string('judul');
-
             $table->unsignedBigInteger('pembimbing1_id');
             $table->foreign('pembimbing1_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('pembimbing2_id');
             $table->foreign('pembimbing2_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->string('status');
+            // $table->string('status');
             $table->date('tgl_ujian')->nullable();
             $table->string('file_proposal')->nullable();
             $table->string('file_hasil')->nullable();

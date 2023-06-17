@@ -36,17 +36,29 @@
                                 <div class="process-wrapper">
                                     <div id="progress-bar-container">
                                         <ul>
-                                            <li class="@if (isset($skripsiMhs)) step @endif step01 active">
-                                                <div class="step-inner">PROPOSAL</div>
+                                            {{-- <li class="@if (isset($skripsiMhs)) step @endif step01 active">
+                                                <div class="step-inner">pengajuan judul</div>
                                             </li>
                                             <li class="@if (isset($skripsiMhs)) step @endif step02">
-                                                <div class="step-inner">HASIL</div>
+                                                <div class="step-inner">proposal</div>
                                             </li>
                                             <li class="@if (isset($skripsiMhs)) step @endif step03">
-                                                <div class="step-inner">SKRIPSI</div>
+                                                <div class="step-inner">hasil</div>
                                             </li>
                                             <li class="@if (isset($skripsiMhs)) step @endif step04">
-                                                <div class="step-inner">FINISH</div>
+                                                <div class="step-inner">skripsi</div>
+                                            </li> --}}
+                                            <li class="step01 active">
+                                                <div class="step-inner">pengajuan judul</div>
+                                            </li>
+                                            <li class="step02">
+                                                <div class="step-inner">proposal</div>
+                                            </li>
+                                            <li class="step03">
+                                                <div class="step-inner">hasil</div>
+                                            </li>
+                                            <li class="step04">
+                                                <div class="step-inner">skripsi</div>
                                             </li>
                                         </ul>
 
@@ -57,9 +69,9 @@
 
                                     <div id="progress-content-section">
                                         <div class="section-content discovery active">
-                                            <form action="{{ url('upload-file-proposal') }}" enctype="multipart/form-data"
-                                                method="post">
-                                                {{ csrf_field() }}
+                                            {{-- form pengajuan judul --}}
+                                            <form action="{{ url('pengajuan-judul') }}" method="post">
+                                                @csrf
                                                 <div class="mb-4">
                                                     <h6>Judul Tugas Akhir</h6>
                                                     @if (isset($skripsiMhs))
@@ -67,16 +79,7 @@
                                                     @else
                                                         <textarea name="judul" cols="90" rows="4" required></textarea>
                                                     @endif
-
                                                 </div>
-
-                                                <h2>
-                                                    <label for="upload-file" class="upload-btn">UPLOAD FILE
-                                                        PROPOSAL</label>
-                                                    <input type="file" id="upload-file" class="upload-input"
-                                                        name="file_proposal" required />
-                                                </h2>
-
                                                 <div class="select-wrapper">
                                                     <select name="dosen1" id="combo-1" class="select" required>
                                                         <option value="">Dosen Pembimbing 1</option>
@@ -108,21 +111,63 @@
                                                     </span>
                                                 </div>
                                                 <div>
-                                                    <button class="upload-btn mt-3">SIMPAN</button>
+                                                    <button type="submit" class="upload-btn mt-3">SIMPAN</button>
                                                 </div>
                                             </form>
+                                            {{-- end form pengajuan judul --}}
                                         </div>
 
                                         <div class="section-content strategy">
-                                            <form action="{{ url('upload-file-hasil') }}" method="post"
-                                                enctype="multipart/form-data">
-                                                {{ csrf_field() }}
+                                            {{-- form upload proposal --}}
+                                            <form action="{{ url('upload-file-proposal') }}" enctype="multipart/form-data"
+                                                method="post">
+                                                @csrf
                                                 <div class="mb-4">
                                                     <h6>Judul Tugas Akhir</h6>
                                                     @if (isset($skripsiMhs))
-                                                        <textarea cols="90" rows="4" readonly>{{ $skripsiMhs->judul }}</textarea>
+                                                        <div class="mt-3 pt-3 pb-2"
+                                                            style="background: #eaeaea; border: 2px solid rgb(211, 211, 211)">
+                                                            <h5>{{ $skripsiMhs->judul }}</h5>
+                                                        </div>
                                                     @else
-                                                        <textarea cols="90" rows="4" readonly></textarea>
+                                                        <div class="mt-3 pt-3 pb-2"
+                                                            style="background: #eaeaea; border: 2px solid rgb(211, 211, 211)">
+                                                            <h5>Belum ada judul.</h5>
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                                <h2>
+                                                    <label for="upload-file" class="upload-btn">UPLOAD FILE
+                                                        PROPOSAL</label>
+                                                    <input type="file" id="upload-file" class="upload-input"
+                                                        name="file_proposal" required />
+                                                </h2>
+
+                                                <div>
+                                                    <button class="upload-btn">SIMPAN</button>
+                                                </div>
+                                            </form>
+                                            {{-- end form upload proposal --}}
+                                        </div>
+
+                                        <div class="section-content creative">
+                                            {{-- form upload hasil --}}
+                                            <form action="{{ url('upload-file-hasil') }}" method="post"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="mb-4">
+                                                    <h6>Judul Tugas Akhir</h6>
+                                                    @if (isset($skripsiMhs))
+                                                        <div class="mt-3 pt-3 pb-2"
+                                                            style="background: #eaeaea; border: 2px solid rgb(211, 211, 211)">
+                                                            <h5>{{ $skripsiMhs->judul }}</h5>
+                                                        </div>
+                                                    @else
+                                                        <div class="mt-3 pt-3 pb-2"
+                                                            style="background: #eaeaea; border: 2px solid rgb(211, 211, 211)">
+                                                            <h5>Belum ada judul.</h5>
+                                                        </div>
                                                     @endif
                                                 </div>
                                                 <h2>
@@ -135,18 +180,25 @@
                                                     <button class="upload-btn">SIMPAN</button>
                                                 </div>
                                             </form>
+                                            {{-- end form upload haisl --}}
                                         </div>
 
-                                        <div class="section-content creative">
+                                        <div class="section-content production">
+                                            {{-- form upload skripsi --}}
                                             <form action="{{ url('upload-file-skripsi') }}" method="post"
                                                 enctype="multipart/form-data">
-                                                {{ csrf_field() }}
                                                 <div class="mb-4">
                                                     <h6>Judul Tugas Akhir</h6>
                                                     @if (isset($skripsiMhs))
-                                                        <textarea name="judul" cols="90" rows="4" readonly>{{ $skripsiMhs->judul }}</textarea>
+                                                        <div class="mt-3 pt-3 pb-2"
+                                                            style="background: #eaeaea; border: 2px solid rgb(211, 211, 211)">
+                                                            <h5>{{ $skripsiMhs->judul }}</h5>
+                                                        </div>
                                                     @else
-                                                        <textarea name="judul" cols="90" rows="4" readonly></textarea>
+                                                        <div class="mt-3 pt-3 pb-2"
+                                                            style="background: #eaeaea; border: 2px solid rgb(211, 211, 211)">
+                                                            <h5>Belum ada judul.</h5>
+                                                        </div>
                                                     @endif
                                                 </div>
                                                 <h2>
@@ -159,11 +211,7 @@
                                                     <button class="upload-btn">SIMPAN</button>
                                                 </div>
                                             </form>
-                                        </div>
-
-                                        <div class="section-content production">
-                                            <h2>SELESAI</h2>
-                                            <p>Selamat Wisuda.</p>
+                                            {{-- end form upload skripsi --}}
                                         </div>
 
                                     </div>
@@ -172,27 +220,27 @@
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
                                 {{-- Cek file apa yg sudah diupload --}}
-                                @if (isset($skripsiMhs))
-                                    @if (!is_null($skripsiMhs->file_proposal) && is_null($skripsiMhs->file_hasil) && is_null($skripsiMhs->file_skripsi))
-                                        <script>
-                                            jQuery(function() {
-                                                jQuery('.step02').click();
-                                            })
-                                        </script>
-                                    @elseif (!is_null($skripsiMhs->file_proposal) && !is_null($skripsiMhs->file_hasil) && is_null($skripsiMhs->file_skripsi))
-                                        <script>
-                                            jQuery(function() {
-                                                jQuery('.step03').click();
-                                            })
-                                        </script>
-                                    @elseif (!is_null($skripsiMhs->file_proposal) && !is_null($skripsiMhs->file_hasil) && !is_null($skripsiMhs->file_skripsi))
-                                        <script>
-                                            jQuery(function() {
-                                                jQuery('.step04').click();
-                                            })
-                                        </script>
-                                    @endif
-                                @endif
+                                {{-- @if (isset($skripsiMhs))
+                                    @if (!is_null($skripsiMhs->file_proposal) && is_null($skripsiMhs->file_hasil) && is_null($skripsiMhs->file_skripsi)) --}}
+                                <script>
+                                    jQuery(function() {
+                                        jQuery('.step02').click();
+                                    })
+                                </script>
+                                {{-- @elseif (!is_null($skripsiMhs->file_proposal) && !is_null($skripsiMhs->file_hasil) && is_null($skripsiMhs->file_skripsi)) --}}
+                                <script>
+                                    jQuery(function() {
+                                        jQuery('.step03').click();
+                                    })
+                                </script>
+                                {{-- @elseif (!is_null($skripsiMhs->file_proposal) && !is_null($skripsiMhs->file_hasil) && !is_null($skripsiMhs->file_skripsi)) --}}
+                                <script>
+                                    jQuery(function() {
+                                        jQuery('.step04').click();
+                                    })
+                                </script>
+                                {{-- @endif
+                                @endif --}}
 
 
                                 <script>
@@ -207,34 +255,34 @@
                                     });
                                 </script>
 
-                                @if (isset($skripsiMhs))
-                                    @if ($skripsiMhs->file_proposal != null)
-                                        <script>
-                                            $(".step02").click(function() {
-                                                $("#line-progress").css("width", "33%");
-                                                $(".strategy").addClass("active").siblings().removeClass("active");
-                                            });
-                                        </script>
-                                    @endif
+                                {{-- @if (isset($skripsiMhs))
+                                    @if ($skripsiMhs->file_proposal != null) --}}
+                                <script>
+                                    $(".step02").click(function() {
+                                        $("#line-progress").css("width", "33%");
+                                        $(".strategy").addClass("active").siblings().removeClass("active");
+                                    });
+                                </script>
+                                {{-- @endif --}}
 
-                                    @if ($skripsiMhs->file_hasil != null)
-                                        <script>
-                                            $(".step03").click(function() {
-                                                $("#line-progress").css("width", "66%");
-                                                $(".creative").addClass("active").siblings().removeClass("active");
-                                            });
-                                        </script>
-                                    @endif
+                                {{-- @if ($skripsiMhs->file_hasil != null) --}}
+                                <script>
+                                    $(".step03").click(function() {
+                                        $("#line-progress").css("width", "66%");
+                                        $(".creative").addClass("active").siblings().removeClass("active");
+                                    });
+                                </script>
+                                {{-- @endif --}}
 
-                                    @if ($skripsiMhs->file_skripsi != null)
-                                        <script>
-                                            $(".step04").click(function() {
-                                                $("#line-progress").css("width", "100%");
-                                                $(".production").addClass("active").siblings().removeClass("active");
-                                            });
-                                        </script>
-                                    @endif
-                                @endif
+                                {{-- @if ($skripsiMhs->file_skripsi != null) --}}
+                                <script>
+                                    $(".step04").click(function() {
+                                        $("#line-progress").css("width", "100%");
+                                        $(".production").addClass("active").siblings().removeClass("active");
+                                    });
+                                </script>
+                                {{-- @endif
+                                @endif --}}
 
                             </div>
                         </div>
