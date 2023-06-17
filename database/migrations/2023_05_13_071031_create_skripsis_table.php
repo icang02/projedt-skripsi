@@ -29,6 +29,8 @@ return new class extends Migration
             $table->string('file_proposal')->nullable();
             $table->string('file_hasil')->nullable();
             $table->string('file_skripsi')->nullable();
+
+            $table->boolean('email_mahasiswa')->default(0);
         });
     }
 

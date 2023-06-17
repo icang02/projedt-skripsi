@@ -51,11 +51,31 @@
         </div>
 
         <div class="email-content">
-            <h3>Halo, {{ $skripsi->mahasiswa->nama }} ({{ strtoupper($skripsi->mahasiswa->username) }})</h3>
-            <p>Skripsi Anda telah berlangsung selama 5 bulan. Mohon untuk segera diselesaikan atau silahkan konsultasi
-                ke dosen pembimbing terkait progress skripsi Anda.
+            <h3>Notifikasi Pemberitahuan</h3>
+
+            <p>Bahwa mahasiswa/i atas nama {{ $skripsi->mahasiswa->nama }}
+                ({{ strtoupper($skripsi->mahasiswa->username) }}) belum menyelesaikan skripsi sejak 5 bulan terakhir.
             </p>
-            <p>Terima kasih, tetap semangat para pejuang skripsi!</p>
+            <p style="text-align:center;">Judul tugas akhir : <br>"<b>{{ $skripsi->judul }}</b>".</p>
+
+            <table>
+                <tr>
+                    <td>Dosen pembimbing 1</td>
+                    <td>&nbsp;:&nbsp;&nbsp;</td>
+                    <td><b>{{ $skripsi->pembimbing_1->nama }}</b></td>
+                </tr>
+                <tr>
+                    <td>Dosen pembimbing 2</td>
+                    <td>&nbsp;:&nbsp;&nbsp;</td>
+                    <td><b>{{ $skripsi->pembimbing_2->nama }}</b></td>
+                </tr>
+            </table>
+
+            <p>Ini adalah pesan otomatis sebagai pengingat deadline skripsi mahasiswa.</p>
+
+            <p></p>
+
+            <p>Terima kasih.</p>
         </div>
 
         <div class="email-footer">

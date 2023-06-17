@@ -25,6 +25,14 @@ class UserSeeder extends Seeder
 
         // User Dosen
         User::create([
+            'nama' => 'Icang, ST., M.Kom.',
+            'username' => '199104062018031022',
+            'email' => 'ilmifaizan.22@gmail.com',
+            'password' => bcrypt('dosen'),
+            'level' => 'dosen',
+        ]);
+
+        User::create([
             'nama' => 'Rizal Adi Saputra, ST., M.Kom.',
             'username' => '199104062018031021',
             'email' => 'rizaladisaputra@uho.ac.id',

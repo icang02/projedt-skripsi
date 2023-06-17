@@ -20,11 +20,7 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('command:kirim')->daily();
-        // $schedule->call(function () {
-        //     $response = \Illuminate\Support\Facades\Http::get('http://127.0.0.1:8000/kirim-email'); // Ganti URL dengan URL yang sesuai
-        //     // Lakukan sesuatu dengan respons jika diperlukan
-        // })->everyMinute();
+        $schedule->command('command:kirim')->dailyAt('08:00');
     }
 
     /**

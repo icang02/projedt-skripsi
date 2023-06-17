@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Mail\SkripsiDeadlineNotification;
+use App\Mail\SkripsiDeadlineNotification2;
 use App\Models\Skripsi;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
@@ -37,32 +38,25 @@ class CheckSkripsiDeadline extends Command
         // Menghitung tanggal 5 bulan sebelumnya
         $deadlineDate = $currentDate->subMonths(4);
 
+        // UNTUK MAHASISWA
         // Mendapatkan data skripsi dengan tgl_judul sebelum deadline dan file_skripsi masih null
         $skripsis = Skripsi::whereDate('tgl_judul', '<=', $deadlineDate)
-            ->whereNull('file_skripsi')
+            ->whereNull('file_skripsi')->where('email_mahasiswa', 0)
             ->get();
 
         foreach ($skripsis as $skripsi) {
             // Kirim email ke user yang terkait
-            $user = $skripsi->mahasiswa; // Ganti 'user' dengan relasi antara skripsi dan user di model Skripsi
-            Mail::to($user->email)->send(new SkripsiDeadlineNotification($skripsi));
+            $mahasiswa = $skripsi->mahasiswa; // Ganti 'user' dengan relasi antara skripsi dan user di model Skripsi
+            $dosen1 = $skripsi->pembimbing_1;
+            $dosen2 = $skripsi->pembimbing_2;
+
+            Mail::to($mahasiswa->email)->send(new SkripsiDeadlineNotification($skripsi));
+            Mail::to($dosen1->email)->send(new SkripsiDeadlineNotification2($skripsi));
+            Mail::to($dosen2->email)->send(new SkripsiDeadlineNotification2($skripsi));
+
+            // update mail_mahasiswa ke true
+            $skripsi->update(['email_mahasiswa' => 1]);
         }
-
-        // Mendapatkan data skripsi dan user terkait
-        // $skripsi = Skripsi::all();
-
-        // foreach ($skripsi as $skr) {
-        //     $mail = new SkripsiDeadlineNotification($skr);
-        //     $result = Mail::to($skr->mahasiswa->email)->send($mail);
-
-        //     if ($result) {
-        //         // Email berhasil dikirim
-        //         $this->info('Skripsi deadline check completed.');
-        //     } else {
-        //         // Email gagal dikirim
-        //         $this->info('Skripsi gagal kirim email.');
-        //     }
-        // }
 
         $this->info('Skripsi deadline check completed.');
     }
