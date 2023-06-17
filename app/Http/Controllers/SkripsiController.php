@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Skripsi;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SkripsiDeadlineNotification;
 
 use function PHPSTORM_META\map;
 
@@ -147,6 +151,7 @@ class SkripsiController extends Controller
                 'mhs_id' => auth()->user()->id,
                 'pembimbing1_id' => $request->dosen1,
                 'pembimbing2_id' => $request->dosen2,
+                'tgl_judul' => Carbon::now(),
             ]);
         } else {
             $skripsiMhs->update([
@@ -157,5 +162,24 @@ class SkripsiController extends Controller
         }
 
         return back()->with('success', 'Judul berhasil diajukan.');
+    }
+
+    public function kirimEmailNotifikasi()
+    {
+        // Mendapatkan data skripsi dan user terkait
+        $skripsi = Skripsi::all();
+
+        foreach ($skripsi as $skr) {
+            $mail = new SkripsiDeadlineNotification($skr);
+            $result = Mail::to($skr->mahasiswa->email)->send($mail);
+
+            if ($result) {
+                // Email berhasil dikirim
+                echo "Email berhasil dikirim!<br>";
+            } else {
+                // Email gagal dikirim
+                echo "Email gagal dikirim!<br>";
+            }
+        }
     }
 }

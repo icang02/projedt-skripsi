@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreign('pembimbing2_id')->references('id')->on('users')->onDelete('cascade');
 
             // $table->string('status');
+            $table->date('tgl_judul');
             $table->date('tgl_ujian')->nullable();
             $table->string('file_proposal')->nullable();
             $table->string('file_hasil')->nullable();

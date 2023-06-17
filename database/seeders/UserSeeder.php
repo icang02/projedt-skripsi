@@ -64,15 +64,29 @@ class UserSeeder extends Seeder
         User::create([
             'nama' => 'Muhammad Ikhwan',
             'username' => 'e1e120082',
-            'email' => 'ikhwan@gmail.com',
+            'email' => 'ikhwan25.jun@gmail.com',
             'password' => bcrypt('e1e120082'),
             'level' => 'mahasiswa',
         ]);
         User::create([
             'nama' => 'Andini Septiani',
             'username' => 'e1e120059',
-            'email' => 'andini@gmail.com',
+            'email' => 'andiniseptianiii02@gmail.com',
             'password' => bcrypt('e1e120059'),
+            'level' => 'mahasiswa',
+        ]);
+        User::create([
+            'nama' => 'Ilmi Faizan',
+            'username' => 'e1e120011',
+            'email' => 'ilmifaizan1112@gmail.com',
+            'password' => bcrypt('e1e120011'),
+            'level' => 'mahasiswa',
+        ]);
+        User::create([
+            'nama' => 'Muhamad Amhar Rayadin',
+            'username' => 'e1e120037',
+            'email' => 'amharrayadin@gmail.com',
+            'password' => bcrypt('e1e120037'),
             'level' => 'mahasiswa',
         ]);
     }

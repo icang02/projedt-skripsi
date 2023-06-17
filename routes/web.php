@@ -64,3 +64,6 @@ Route::post('upload-file-hasil', [SkripsiController::class, 'uploadHasil'])->mid
 // Route UPLOAD DAN DOWNLOAD FILE SKRIPSI
 Route::post('download-file-skripsi/{skripsiMhs}', [SkripsiController::class, 'downloadSkripsi'])->middleware('auth');
 Route::post('upload-file-skripsi', [SkripsiController::class, 'uploadSkripsi'])->middleware('auth');
+
+// cek email
+Route::get('/kirim-email', [SkripsiController::class, 'kirimEmailNotifikasi']);
