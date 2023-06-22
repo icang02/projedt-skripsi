@@ -2,6 +2,24 @@
 
 @section('main-contents')
     <div class="content-wrapper">
+
+
+        @if (session('success'))
+            <div class="alert alert-success position-absolute" id="notif" role="alert">
+                {{ session('success') }}
+            </div>
+
+            <script>
+                window.onload = function() {
+                    $("#notif").css("transform", "translateX(0)");
+
+                    setTimeout(function() {
+                        $("#notif").css("transform", "translateX(-300px)");
+                    }, 2500);
+                };
+            </script>
+        @endif
+
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -36,28 +54,34 @@
                                 <div class="process-wrapper">
                                     <div id="progress-bar-container">
                                         <ul>
-                                            {{-- <li class="@if (isset($skripsiMhs)) step @endif step01 active">
+                                            @php
+                                                // $activeJudul = false;
+                                                $activeProposal = false;
+                                                $activeHasil = false;
+                                                $activeSkripsi = false;
+                                                if (isset($skripsiMhs)) {
+                                                    if (!is_null($skripsiMhs->tgl_judul)) {
+                                                        $activeProposal = true;
+                                                    }
+                                                    if (!is_null($skripsiMhs->file_proposal)) {
+                                                        $activeHasil = true;
+                                                    }
+                                                    if (!is_null($skripsiMhs->file_hasil)) {
+                                                        $activeSkripsi = true;
+                                                    }
+                                                }
+                                            @endphp
+
+                                            <li class="step01 @if ($activeProposal) active @endif">
                                                 <div class="step-inner">pengajuan judul</div>
                                             </li>
-                                            <li class="@if (isset($skripsiMhs)) step @endif step02">
+                                            <li class="step02 @if ($activeProposal) active @endif">
                                                 <div class="step-inner">proposal</div>
                                             </li>
-                                            <li class="@if (isset($skripsiMhs)) step @endif step03">
+                                            <li class="step03 @if ($activeProposal && $activeHasil) active @endif">
                                                 <div class="step-inner">hasil</div>
                                             </li>
-                                            <li class="@if (isset($skripsiMhs)) step @endif step04">
-                                                <div class="step-inner">skripsi</div>
-                                            </li> --}}
-                                            <li class="step01 active">
-                                                <div class="step-inner">pengajuan judul</div>
-                                            </li>
-                                            <li class="step02">
-                                                <div class="step-inner">proposal</div>
-                                            </li>
-                                            <li class="step03">
-                                                <div class="step-inner">hasil</div>
-                                            </li>
-                                            <li class="step04">
+                                            <li class="step04 @if ($activeProposal && $activeHasil && $activeSkripsi) active @endif">
                                                 <div class="step-inner">skripsi</div>
                                             </li>
                                         </ul>
@@ -66,6 +90,12 @@
                                             <div id="line-progress"></div>
                                         </div>
                                     </div>
+
+                                    {{-- <ul>
+                                        <li>proposal : {{ $activeProposal ? $activeProposal : '0' }}</li>
+                                        <li>hasil : {{ $activeHasil ? $activeHasil : '0' }}</li>
+                                        <li>skripsi : {{ $activeSkripsi ? $activeSkripsi : '0' }}</li>
+                                    </ul> --}}
 
                                     <div id="progress-content-section">
                                         <div class="section-content discovery active">
@@ -111,7 +141,8 @@
                                                     </span>
                                                 </div>
                                                 <div>
-                                                    <button type="submit" class="upload-btn mt-3">SIMPAN</button>
+                                                    <button type="submit"
+                                                        class="upload-btn mt-3 @if (isset($skripsiMhs)) @if ($skripsiMhs->tgl_judul) success @endif @endif">SIMPAN</button>
                                                 </div>
                                             </form>
                                             {{-- end form pengajuan judul --}}
@@ -138,14 +169,17 @@
                                                 </div>
 
                                                 <h2>
-                                                    <label for="upload-file" class="upload-btn">UPLOAD FILE
-                                                        PROPOSAL</label>
+                                                    <label for="upload-file"
+                                                        class="upload-btn @if (isset($skripsiMhs)) @if ($skripsiMhs->file_proposal) success @endif @endif">
+                                                        UPLOAD FILE PROPOSAL
+                                                    </label>
                                                     <input type="file" id="upload-file" class="upload-input"
                                                         name="file_proposal" required />
                                                 </h2>
 
                                                 <div>
-                                                    <button class="upload-btn">SIMPAN</button>
+                                                    <button
+                                                        class="upload-btn @if (isset($skripsiMhs)) @if ($skripsiMhs->file_proposal) success @endif @endif">SIMPAN</button>
                                                 </div>
                                             </form>
                                             {{-- end form upload proposal --}}
@@ -171,13 +205,16 @@
                                                     @endif
                                                 </div>
                                                 <h2>
-                                                    <label for="file_hasil" class="upload-btn">Upload File
+                                                    <label for="file_hasil"
+                                                        class="upload-btn @if (isset($skripsiMhs)) @if ($skripsiMhs->file_hasil) success @endif @endif">Upload
+                                                        File
                                                         HASIL</label>
                                                     <input type="file" id="file_hasil" class="upload-input"
                                                         name="file_hasil" required />
                                                 </h2>
                                                 <div>
-                                                    <button class="upload-btn">SIMPAN</button>
+                                                    <button
+                                                        class="upload-btn @if (isset($skripsiMhs)) @if ($skripsiMhs->file_hasil) success @endif @endif">SIMPAN</button>
                                                 </div>
                                             </form>
                                             {{-- end form upload haisl --}}
@@ -187,6 +224,7 @@
                                             {{-- form upload skripsi --}}
                                             <form action="{{ url('upload-file-skripsi') }}" method="post"
                                                 enctype="multipart/form-data">
+                                                @csrf
                                                 <div class="mb-4">
                                                     <h6>Judul Tugas Akhir</h6>
                                                     @if (isset($skripsiMhs))
@@ -202,13 +240,16 @@
                                                     @endif
                                                 </div>
                                                 <h2>
-                                                    <label for="file_skripsi" class="upload-btn">Upload File
+                                                    <label for="file_skripsi"
+                                                        class="upload-btn @if (isset($skripsiMhs)) @if ($skripsiMhs->file_skripsi) success @endif @endif">Upload
+                                                        File
                                                         SKRIPSI</label>
                                                     <input type="file" id="file_skripsi" class="upload-input"
                                                         name="file_skripsi" required />
                                                 </h2>
                                                 <div>
-                                                    <button class="upload-btn">SIMPAN</button>
+                                                    <button
+                                                        class="upload-btn @if (isset($skripsiMhs)) @if ($skripsiMhs->file_skripsi) success @endif @endif">SIMPAN</button>
                                                 </div>
                                             </form>
                                             {{-- end form upload skripsi --}}
@@ -219,28 +260,21 @@
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-                                {{-- Cek file apa yg sudah diupload --}}
-                                {{-- @if (isset($skripsiMhs))
-                                    @if (!is_null($skripsiMhs->file_proposal) && is_null($skripsiMhs->file_hasil) && is_null($skripsiMhs->file_skripsi)) --}}
                                 <script>
                                     jQuery(function() {
                                         jQuery('.step02').click();
                                     })
                                 </script>
-                                {{-- @elseif (!is_null($skripsiMhs->file_proposal) && !is_null($skripsiMhs->file_hasil) && is_null($skripsiMhs->file_skripsi)) --}}
                                 <script>
                                     jQuery(function() {
                                         jQuery('.step03').click();
                                     })
                                 </script>
-                                {{-- @elseif (!is_null($skripsiMhs->file_proposal) && !is_null($skripsiMhs->file_hasil) && !is_null($skripsiMhs->file_skripsi)) --}}
                                 <script>
                                     jQuery(function() {
                                         jQuery('.step04').click();
                                     })
                                 </script>
-                                {{-- @endif
-                                @endif --}}
 
 
                                 <script>
@@ -255,32 +289,71 @@
                                     });
                                 </script>
 
+                                @if ($activeProposal)
+                                    <script>
+                                        $(".step02").click(function() {
+                                            $("#line-progress").css("width", "33%");
+                                            $(".strategy").addClass("active").siblings().removeClass("active");
+                                        });
+                                    </script>
+                                @endif
+                                @if ($activeProposal && $activeHasil)
+                                    <script>
+                                        $(".step03").click(function() {
+                                            $("#line-progress").css("width", "66%");
+                                            $(".creative").addClass("active").siblings().removeClass("active");
+                                        });
+                                    </script>
+                                @endif
+                                @if ($activeProposal && $activeHasil && $activeSkripsi)
+                                    <script>
+                                        $(".step04").click(function() {
+                                            $("#line-progress").css("width", "100%");
+                                            $(".production").addClass("active").siblings().removeClass("active");
+                                        });
+                                    </script>
+                                @endif
                                 {{-- @if (isset($skripsiMhs))
-                                    @if ($skripsiMhs->file_proposal != null) --}}
-                                <script>
-                                    $(".step02").click(function() {
-                                        $("#line-progress").css("width", "33%");
-                                        $(".strategy").addClass("active").siblings().removeClass("active");
-                                    });
-                                </script>
-                                {{-- @endif --}}
+                                    @if (!is_null($skripsiMhs->tgl_ujian))
+                                        <script>
+                                            $(".step02").click(function() {
+                                                $("#line-progress").css("width", "33%");
+                                                $(".strategy").addClass("active").siblings().removeClass("active");
+                                            });
+                                        </script>
+                                    @elseif (!is_null($skripsiMhs->tgl_ujian) && !is_null($skripsiMhs->file_proposal))
+                                        <script>
+                                            $(".step03").click(function() {
+                                                $("#line-progress").css("width", "66%");
+                                                $(".creative").addClass("active").siblings().removeClass("active");
+                                            });
+                                        </script>
+                                    @elseif (!is_null($skripsiMhs->tgl_ujian) && !is_null($skripsiMhs->file_proposal && !is_null($skripsiMhs->file_hasil)))
+                                        <script>
+                                            $(".step04").click(function() {
+                                                $("#line-progress").css("width", "100%");
+                                                $(".production").addClass("active").siblings().removeClass("active");
+                                            });
+                                        </script>
+                                    @endif
+                                @endif --}}
 
                                 {{-- @if ($skripsiMhs->file_hasil != null) --}}
-                                <script>
+                                {{-- <script>
                                     $(".step03").click(function() {
                                         $("#line-progress").css("width", "66%");
                                         $(".creative").addClass("active").siblings().removeClass("active");
                                     });
-                                </script>
+                                </script> --}}
                                 {{-- @endif --}}
 
                                 {{-- @if ($skripsiMhs->file_skripsi != null) --}}
-                                <script>
+                                {{-- <script>
                                     $(".step04").click(function() {
                                         $("#line-progress").css("width", "100%");
                                         $(".production").addClass("active").siblings().removeClass("active");
                                     });
-                                </script>
+                                </script> --}}
                                 {{-- @endif
                                 @endif --}}
 

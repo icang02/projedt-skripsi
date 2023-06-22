@@ -238,6 +238,15 @@ h1 {
     display: block;
 }
 
+.success {
+  background-color: #28A745 !important;
+}
+
+#notif {
+  transform: translateX(-300px);
+  transition: 1s;
+}
+
 @keyframes FadeInUp {
     0% {
         transform: translateY(15px);
