@@ -172,15 +172,24 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $skripsi->tgl_ujian ?? '-' }}
-                                                    @can('admin')
+                                                    @php
+                                                        $tglUjian = '-';
+                                                        if ($skripsi->tgl_ujian_skripsi) {
+                                                            $tglUjian = $skripsi->tgl_ujian_skripsi;
+                                                        } elseif ($skripsi->tgl_ujian_hasil) {
+                                                            $tglUjian = $skripsi->tgl_ujian_hasil;
+                                                        } elseif ($skripsi->tgl_ujian_proposal) {
+                                                            $tglUjian = $skripsi->tgl_ujian_proposal;
+                                                        }
+                                                    @endphp
+                                                    {{ $tglUjian }}
+                                                    {{-- @can('admin')
                                                         <button class="btn btn-info badge d-block mx-auto" data-toggle="modal"
                                                             data-target="#modalTanggal">Edit</button>
-                                                    @endcan
+                                                    @endcan --}}
                                                 </td>
 
-                                                @can('admin')
-                                                    {{-- Modal Input Tanggal --}}
+                                                {{-- @can('admin')
                                                     <div class="modal fade" id="modalTanggal" tabindex="-1"
                                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-sm">
@@ -218,7 +227,7 @@
                                                             </form>
                                                         </div>
                                                     </div>
-                                                @endcan
+                                                @endcan --}}
                                             </tr>
                                         @empty
                                             <tr>

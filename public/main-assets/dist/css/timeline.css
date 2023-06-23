@@ -245,6 +245,7 @@ h1 {
 #notif {
   transform: translateX(-300px);
   transition: 1s;
+  border-radius: 0px 6px 6px 0px;
 }
 
 @keyframes FadeInUp {

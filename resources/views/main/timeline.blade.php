@@ -156,9 +156,9 @@
                                                 <div class="mb-4">
                                                     <h6>Judul Tugas Akhir</h6>
                                                     @if (isset($skripsiMhs))
-                                                        <div class="mt-3 pt-3 pb-2"
+                                                        <div class="mt-3 pt-3 pb-2 w-75 mx-auto"
                                                             style="background: #eaeaea; border: 2px solid rgb(211, 211, 211)">
-                                                            <h5>{{ $skripsiMhs->judul }}</h5>
+                                                            <h6 class="font-weight-bold">{{ $skripsiMhs->judul }}</h6>
                                                         </div>
                                                     @else
                                                         <div class="mt-3 pt-3 pb-2"
@@ -174,7 +174,18 @@
                                                         UPLOAD FILE PROPOSAL
                                                     </label>
                                                     <input type="file" id="upload-file" class="upload-input"
-                                                        name="file_proposal" required />
+                                                        name="file_proposal"
+                                                        @if (isset($skripsiMhs)) @required(!$skripsiMhs->file_proposal) @endif />
+
+                                                    {{-- Tanggal Ujian --}}
+                                                    <button type="button"
+                                                        class="upload-btn @if (isset($skripsiMhs)) @if ($skripsiMhs->tgl_ujian_proposal) bg-info @else bg-secondary @endif @endif"
+                                                        id="btnUjianProposal">
+                                                        TANGGAL UJIAN
+                                                    </button>
+                                                    <input type="datetime-local" class="d-none form-control w-25 mx-auto"
+                                                        name="tgl_ujian_proposal" id="formUjianProposal"
+                                                        value="{{ isset($skripsiMhs) ? $skripsiMhs->tgl_ujian_proposal : '' }}">
                                                 </h2>
 
                                                 <div>
@@ -193,9 +204,9 @@
                                                 <div class="mb-4">
                                                     <h6>Judul Tugas Akhir</h6>
                                                     @if (isset($skripsiMhs))
-                                                        <div class="mt-3 pt-3 pb-2"
+                                                        <div class="mt-3 pt-3 pb-2 w-75 mx-auto"
                                                             style="background: #eaeaea; border: 2px solid rgb(211, 211, 211)">
-                                                            <h5>{{ $skripsiMhs->judul }}</h5>
+                                                            <h6 class="font-weight-bold">{{ $skripsiMhs->judul }}</h6>
                                                         </div>
                                                     @else
                                                         <div class="mt-3 pt-3 pb-2"
@@ -210,7 +221,18 @@
                                                         File
                                                         HASIL</label>
                                                     <input type="file" id="file_hasil" class="upload-input"
-                                                        name="file_hasil" required />
+                                                        name="file_hasil"
+                                                        @if (isset($skripsiMhs)) @required(!$skripsiMhs->file_hasil) @endif />
+
+                                                    {{-- Tanggal Ujian --}}
+                                                    <button type="button"
+                                                        class="upload-btn @if (isset($skripsiMhs)) @if ($skripsiMhs->tgl_ujian_hasil) bg-info @else bg-secondary @endif @endif"
+                                                        id="btnUjianHasil">
+                                                        TANGGAL UJIAN
+                                                    </button>
+                                                    <input type="datetime-local" class="d-none form-control w-25 mx-auto"
+                                                        name="tgl_ujian_hasil" id="formUjianHasil"
+                                                        value="{{ isset($skripsiMhs) ? $skripsiMhs->tgl_ujian_hasil : '' }}">
                                                 </h2>
                                                 <div>
                                                     <button
@@ -228,9 +250,9 @@
                                                 <div class="mb-4">
                                                     <h6>Judul Tugas Akhir</h6>
                                                     @if (isset($skripsiMhs))
-                                                        <div class="mt-3 pt-3 pb-2"
+                                                        <div class="mt-3 pt-3 pb-2 w-75 mx-auto"
                                                             style="background: #eaeaea; border: 2px solid rgb(211, 211, 211)">
-                                                            <h5>{{ $skripsiMhs->judul }}</h5>
+                                                            <h6 class="font-weight-bold">{{ $skripsiMhs->judul }}</h6>
                                                         </div>
                                                     @else
                                                         <div class="mt-3 pt-3 pb-2"
@@ -245,7 +267,18 @@
                                                         File
                                                         SKRIPSI</label>
                                                     <input type="file" id="file_skripsi" class="upload-input"
-                                                        name="file_skripsi" required />
+                                                        name="file_skripsi"
+                                                        @if (isset($skripsiMhs)) @required(!$skripsiMhs->file_skripsi) @endif />
+
+                                                    {{-- Tanggal Ujian --}}
+                                                    <button type="button"
+                                                        class="upload-btn @if (isset($skripsiMhs)) @if ($skripsiMhs->tgl_ujian_skripsi) bg-info @else bg-secondary @endif @endif"
+                                                        id="btnUjianSkripsi">
+                                                        TANGGAL UJIAN
+                                                    </button>
+                                                    <input type="datetime-local" class="d-none form-control w-25 mx-auto"
+                                                        name="tgl_ujian_skripsi" id="formUjianSkripsi"
+                                                        value="{{ isset($skripsiMhs) ? $skripsiMhs->tgl_ujian_skripsi : '' }}">
                                                 </h2>
                                                 <div>
                                                     <button
@@ -259,6 +292,44 @@
                                 </div>
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+                                {{-- SCRIPT TANGGAL UJIAN --}}
+                                <script>
+                                    // window.onload = function() {
+                                    $("#btnUjianProposal").click(function() {
+                                        if ($("#formUjianProposal").hasClass("d-none")) {
+                                            $("#formUjianProposal").removeClass("d-none");
+                                            $("#formUjianProposal").slideDown("slow");
+                                        } else {
+                                            $("#formUjianProposal").slideUp("slow", function() {
+                                                $("#formUjianProposal").addClass("d-none");
+                                            });
+                                        }
+                                    });
+
+                                    $("#btnUjianHasil").click(function() {
+                                        if ($("#formUjianHasil").hasClass("d-none")) {
+                                            $("#formUjianHasil").removeClass("d-none");
+                                            $("#formUjianHasil").slideDown("slow");
+                                        } else {
+                                            $("#formUjianHasil").slideUp("slow", function() {
+                                                $("#formUjianHasil").addClass("d-none");
+                                            });
+                                        }
+                                    });
+
+                                    $("#btnUjianSkripsi").click(function() {
+                                        if ($("#formUjianSkripsi").hasClass("d-none")) {
+                                            $("#formUjianSkripsi").removeClass("d-none");
+                                            $("#formUjianSkripsi").slideDown("slow");
+                                        } else {
+                                            $("#formUjianSkripsi").slideUp("slow", function() {
+                                                $("#formUjianSkripsi").addClass("d-none");
+                                            });
+                                        }
+                                    });
+                                    // };
+                                </script>
 
                                 <script>
                                     jQuery(function() {
